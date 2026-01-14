@@ -3,251 +3,218 @@ name: 001-scope-project
 description: Comprehensive project scoping through iterative discovery. Guides users through structured questioning phases to capture every detail needed for software work — whether building new products, adding features, auditing security, optimizing performance, fixing bugs, or migrating systems. Use when user wants to plan any software project or needs help structuring requirements before implementation.
 ---
 
-# Start Project — Gold Standard Discovery
+# Scope Project — Iterative Discovery
 
-Create a zero-ambiguity requirements document by iteratively gathering all relevant details through structured phases. The goal: produce a blueprint so complete that any competent team could execute it without asking questions.
+Capture everything needed to execute software work through iterative questioning. Keep asking until you have a complete, unambiguous specification.
 
-**Works for:** New products, features, refactors, bug fixes, security audits, performance optimization, integrations, and migrations.
+---
 
-## Workflow
+## Step 1: Understand the Work
 
-### 1. Open with Project Type
-
-Start with AskUserQuestion:
+Start by understanding what type of work this is:
 
 ```json
 {
   "questions": [{
     "question": "What type of work is this?",
-    "header": "Project Type",
+    "header": "Work Type",
     "options": [
-      {"label": "New product", "description": "Building from scratch (greenfield)"},
-      {"label": "New feature", "description": "Adding capability to existing product"},
-      {"label": "Improvement/refactor", "description": "Enhancing or restructuring existing code"},
-      {"label": "Bug fix/investigation", "description": "Diagnosing and fixing issues"}
-    ],
-    "multiSelect": false
-  },
-  {
-    "question": "Any specialized focus?",
-    "header": "Focus Area",
-    "options": [
-      {"label": "General development", "description": "Standard feature/product work"},
-      {"label": "Security audit", "description": "Vulnerability assessment and hardening"},
-      {"label": "Performance optimization", "description": "Speed, efficiency, resource usage"},
-      {"label": "Integration/migration", "description": "Connecting systems or moving platforms"}
+      {"label": "New product/feature", "description": "Building something new"},
+      {"label": "Bug fix", "description": "Something's broken"},
+      {"label": "Refactor/improvement", "description": "Making existing code better"},
+      {"label": "Security/performance", "description": "Audit, hardening, or optimization"}
     ],
     "multiSelect": false
   }]
 }
 ```
 
-The combination of **Project Type** + **Focus Area** determines which phases apply and how questions are framed.
-
-### 2. Execute Discovery Phases
-
-Work through all 20 phases from [question-phases.md](references/question-phases.md).
-
-| # | Phase | Goal |
-|---|-------|------|
-| **1** | Executive Context | Problem, strategic alignment, ownership |
-| **2** | User Personas | Primary, secondary, anti-personas |
-| **3** | Success Metrics | North star, secondary, guardrails, instrumentation |
-| **4** | User Stories & Journeys | Stories, flows, entry points |
-| **5** | Functional Requirements | Features, inputs/outputs, data entities |
-| **6** | Logic & Algorithms | Formulas, business rules, state machines |
-| **7** | Edge Cases | User, data, and system "what ifs" |
-| **8** | UX: Screens & States | Screen inventory, 4 states per screen |
-| **9** | UX: Interactions | Micro-interactions, animations, sound/haptics |
-| **10** | Tech Stack: Core | Frontend, backend, API style |
-| **11** | Tech Stack: Data | Database, ORM, caching, storage, search |
-| **12** | Tech Stack: Auth | Provider, methods, OAuth, roles, sessions |
-| **13** | Tech Stack: Infra | Hosting, CI/CD, environments, DNS/SSL |
-| **14** | Tech Stack: Services | Email, payments, analytics, monitoring |
-| **15** | API Contracts | Architecture, endpoints, schema, indexes |
-| **16** | Performance & Security | Budgets, compliance, platform compatibility |
-| **17** | Operational | i18n, a11y, admin tools, data management |
-| **18** | Go-to-Market | Release phases, marketing, rollback plan |
-| **19** | Scope Boundaries | v1/v2, exclusions, risks, open questions |
-| **20** | Implementation | File structure, patterns, testing, docs |
-| **21** | Code Standards | Conventions, style, formatting, quality rules |
-
-### Phase Applicability by Project Type
-
-Not all phases apply to all project types. Use this matrix:
-
-| Phase | New Product | New Feature | Refactor | Bug Fix | Security | Performance | Integration |
-|-------|:-----------:|:-----------:|:--------:|:-------:|:--------:|:-----------:|:-----------:|
-| 1. Executive Context | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 2. Personas/Stakeholders | ✓ | ✓ | lite | lite | threat actors | lite | ✓ |
-| 3. Success Metrics | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 4. User Stories/Scope | ✓ | ✓ | change scope | repro steps | attack vectors | bottlenecks | data flows |
-| 5. Functional Reqs | ✓ | ✓ | current vs target | root cause | vulnerabilities | hot paths | endpoints |
-| 6. Logic & Rules | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ | ✓ |
-| 7. Edge Cases | ✓ | ✓ | ✓ | ✗ | exploit scenarios | load scenarios | failure modes |
-| 8-9. UX/Design | ✓ | ✓ | if UI changes | ✗ | ✗ | ✗ | ✗ |
-| 10-14. Tech Stack | choose | document existing | document existing | document existing | audit existing | audit existing | map systems |
-| 15. API/Architecture | ✓ | ✓ | current state | affected areas | attack surface | performance profile | integration points |
-| 16. Perf & Security | ✓ | ✓ | ✓ | ✗ | **primary focus** | **primary focus** | ✓ |
-| 17. Operational | ✓ | lite | lite | ✗ | compliance | monitoring | ✓ |
-| 18. Go-to-Market | ✓ | ✓ | rollout plan | ✗ | remediation plan | rollout plan | migration plan |
-| 19. Scope Boundaries | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 20-21. Implementation | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-
-**Legend:** ✓ = full phase | lite = abbreviated | ✗ = skip | *text* = alternative framing
-
-### Phase Execution Rules
-
-**Per Phase:**
-1. Ask 2-4 targeted questions using AskUserQuestion
-2. Summarize understanding after responses
-3. Dive deeper if answers reveal complexity
-4. Move to next phase when complete
-
-**Adaptive Skipping:**
-- Skip UX phases (8-9) for backend-only, security audits, performance work
-- Skip Auth (12) if no authentication needed
-- Skip Payments (14) if no monetization
-- Skip i18n (17) if English-only v1
-- Skip GTM (18) for internal tools or bug fixes
-
-**Project-Type Adaptations:**
-- **Security audits**: Replace personas with threat actors, features with vulnerabilities
-- **Performance**: Focus on bottlenecks, metrics, profiling results
-- **Bug fixes**: Emphasize reproduction steps, root cause, affected areas
-- **Existing codebases**: Tech stack phases become "document current state" not "choose"
-
-**Consolidation:**
-- Tech phases (10-14) can be 2-3 rounds if documenting existing stack
-- Simple projects can combine phases 5-7
-- Bug fixes may only need phases 1, 3, 4, 5, 15, 19-21
-
-### 3. Confirm Completeness
-
-Before generating, summarize all gathered information:
-
-```
-"I've captured:
-- [Summary of each major section]
-
-Before I generate the full PRD, anything to add or change?"
-```
-
-### 4. Generate PRD
-
-Use [prd-template.md](references/prd-template.md) to produce the Gold Standard document.
-
-Output as markdown: `PRD-[project-name].md`
+This shapes what information you need to gather.
 
 ---
 
-## AskUserQuestion Examples
+## Step 2: Iterative Questioning Loop
 
-**Metrics (Phase 3):**
-```json
-{
-  "questions": [
-    {
-      "question": "What single metric defines success for this project?",
-      "header": "North Star",
-      "options": [
-        {"label": "Retention", "description": "D1, D7, or D30 retention rate"},
-        {"label": "Engagement", "description": "DAU, session length, actions per session"},
-        {"label": "Conversion", "description": "Signup rate, purchase rate"},
-        {"label": "Revenue", "description": "MRR, ARPU, LTV"}
-      ],
-      "multiSelect": false
-    },
-    {
-      "question": "What must NOT get worse?",
-      "header": "Guardrails",
-      "options": [
-        {"label": "Cost per user", "description": "Server costs stay under $X"},
-        {"label": "Error rate", "description": "Crashes/errors below X%"},
-        {"label": "Load time", "description": "Performance stays fast"},
-        {"label": "Support tickets", "description": "No increase in complaints"}
-      ],
-      "multiSelect": true
-    }
-  ]
-}
+**Keep asking questions until you have captured all required information.**
+
+Use AskUserQuestion with 2-4 questions per turn. After each response:
+1. Acknowledge what you learned
+2. Identify what's still unclear or missing
+3. Ask follow-up questions
+4. Repeat until complete
+
+### Questioning Principles
+
+- **Follow threads** — When an answer reveals complexity, dive deeper
+- **Be specific** — "What authentication?" not "Tell me about security"
+- **Offer options** — Use multiple choice when reasonable defaults exist
+- **Confirm assumptions** — State what you're assuming and ask if correct
+- **Track state** — Remember what's been decided, don't re-ask
+
+### Example Flow
+
 ```
-
-**Logic & Algorithms (Phase 6):**
-```json
-{
-  "questions": [
-    {
-      "question": "Are there calculations, scoring, or game mechanics that need exact formulas?",
-      "header": "Algorithms",
-      "options": [
-        {"label": "Yes, core mechanics", "description": "Need precise formulas defined"},
-        {"label": "Yes, secondary", "description": "Some calculations but not core"},
-        {"label": "No formulas", "description": "Standard CRUD operations"}
-      ],
-      "multiSelect": false
-    }
-  ]
-}
-```
-
-**UI States (Phase 8):**
-```json
-{
-  "questions": [
-    {
-      "question": "For each screen, we need to define 4 states. Let's start with the main screen. What should the EMPTY state show?",
-      "header": "Empty State",
-      "options": [
-        {"label": "Onboarding prompt", "description": "Guide user to first action"},
-        {"label": "Sample data", "description": "Show examples of what it could look like"},
-        {"label": "Blank with CTA", "description": "Simple 'Get Started' button"},
-        {"label": "Tutorial overlay", "description": "Interactive walkthrough"}
-      ],
-      "multiSelect": false
-    }
-  ]
-}
-```
-
-**Go-to-Market (Phase 18):**
-```json
-{
-  "questions": [
-    {
-      "question": "What's the release strategy?",
-      "header": "Release Plan",
-      "options": [
-        {"label": "Alpha → Beta → GA", "description": "Internal, then waitlist, then public"},
-        {"label": "Soft launch", "description": "Ship quietly, iterate, then announce"},
-        {"label": "Big bang", "description": "Full public launch immediately"},
-        {"label": "Feature flag", "description": "Ship dark, enable for % of users"}
-      ],
-      "multiSelect": false
-    },
-    {
-      "question": "What triggers a rollback?",
-      "header": "Rollback",
-      "options": [
-        {"label": "Error rate > 1%", "description": "Automated rollback on errors"},
-        {"label": "Crash rate spike", "description": "App stability issues"},
-        {"label": "Negative feedback", "description": "User complaints threshold"},
-        {"label": "Manual only", "description": "Human decision required"}
-      ],
-      "multiSelect": true
-    }
-  ]
-}
+Turn 1: "What are you building?" → "A task management app"
+Turn 2: "Who uses it? What's the core workflow?" → "Teams, kanban-style boards"
+Turn 3: "How do teams collaborate? Real-time or async?" → "Real-time, like Trello"
+Turn 4: "What's the tech stack? Any constraints?" → "React, Node, PostgreSQL"
+Turn 5: "Authentication approach? Roles?" → "Google OAuth, admin/member roles"
+... continue until complete ...
 ```
 
 ---
 
-## Session State
+## Step 3: Required Outcomes
 
-Track across all phases:
-- **Locked**: Confirmed decisions (don't re-ask)
-- **Open**: Needs follow-up
-- **Assumed**: Validate before generating
+**Do not generate the document until you have captured ALL of the following:**
 
-Between phases, briefly summarize:
-> "Got it — D1 Retention > 20% as North Star, with server cost guardrails. Moving to User Stories..."
+### For ALL project types:
+
+| Category | What to Capture |
+|----------|-----------------|
+| **The Why** | Problem being solved, who's affected, why now |
+| **Success Criteria** | How we know it's done/working, metrics if applicable |
+| **Scope Boundaries** | What's in, what's out, what's deferred |
+| **Constraints** | Timeline, budget, technical limitations, dependencies |
+| **Risks** | What could go wrong, mitigation strategies |
+
+### Additional for new products/features:
+
+| Category | What to Capture |
+|----------|-----------------|
+| **Users** | Who uses it, their context and motivations |
+| **Functionality** | What it does, inputs/outputs, key workflows |
+| **Tech Stack** | Frontend, backend, database, hosting, services |
+| **Data Model** | Key entities and relationships |
+| **Auth/Roles** | Who can do what |
+| **UX** | Screens, states, key interactions (if UI involved) |
+
+### Additional for bug fixes:
+
+| Category | What to Capture |
+|----------|-----------------|
+| **Reproduction** | Exact steps to reproduce |
+| **Expected vs Actual** | What should happen vs what happens |
+| **Affected Areas** | Which code, which users |
+| **Root Cause Hypothesis** | What we think is wrong |
+
+### Additional for security/performance:
+
+| Category | What to Capture |
+|----------|-----------------|
+| **Current State** | Baseline measurements or known issues |
+| **Target State** | What "good" looks like |
+| **Scope** | What systems/code to audit or optimize |
+| **Methodology** | Approach to testing/measuring |
+
+### Additional for refactors:
+
+| Category | What to Capture |
+|----------|-----------------|
+| **Current State** | What the code looks like now |
+| **Target State** | What it should look like after |
+| **Migration Path** | How to get there safely |
+
+### Code Standards (if implementation involved):
+
+| Category | What to Capture |
+|----------|-----------------|
+| **Patterns** | Coding style, conventions, formatting |
+| **Quality** | Testing requirements, documentation expectations |
+
+---
+
+## Step 4: Completeness Check
+
+Before generating, summarize everything you've captured:
+
+```
+"Here's what I've gathered:
+
+**Problem**: [summary]
+**Users**: [summary]
+**Core Features**: [summary]
+**Tech Stack**: [summary]
+**Success Criteria**: [summary]
+**Scope**: [in/out]
+
+Anything to add or change before I generate the document?"
+```
+
+Only proceed when the user confirms.
+
+---
+
+## Step 5: Generate Document
+
+Use [prd-template.md](references/prd-template.md) to produce the final document.
+
+**Naming convention**: `[TYPE]-[project-name].md`
+- `PRD-taskflow.md` — New product
+- `BUGFIX-login-timeout.md` — Bug fix
+- `SECURITY-api-audit.md` — Security audit
+- `REFACTOR-auth-module.md` — Refactor
+
+Save to `.claude/` directory.
+
+---
+
+## Key Behaviors
+
+1. **Never assume** — If you're not sure, ask
+2. **Never skip** — All required outcomes must be captured
+3. **Never rush** — Better to ask one more question than miss something
+4. **Always confirm** — Summarize understanding before moving on
+5. **Stay focused** — Don't ask about UI for a backend refactor
+
+---
+
+## Example AskUserQuestion Patterns
+
+**Multi-choice for common decisions:**
+```json
+{
+  "questions": [{
+    "question": "What authentication approach?",
+    "header": "Auth",
+    "options": [
+      {"label": "OAuth (Google, GitHub)", "description": "Social login"},
+      {"label": "Email + Password", "description": "Traditional auth"},
+      {"label": "Magic Link", "description": "Passwordless email"},
+      {"label": "SSO/SAML", "description": "Enterprise single sign-on"}
+    ],
+    "multiSelect": true
+  }]
+}
+```
+
+**Open-ended with context:**
+```json
+{
+  "questions": [{
+    "question": "Describe the core user workflow from start to finish",
+    "header": "Workflow",
+    "options": [
+      {"label": "I'll describe it", "description": "Let me explain the flow"},
+      {"label": "Show me examples first", "description": "Reference similar products"}
+    ],
+    "multiSelect": false
+  }]
+}
+```
+
+**Confirming assumptions:**
+```json
+{
+  "questions": [{
+    "question": "I'm assuming PostgreSQL for the database and Prisma as ORM. Sound right?",
+    "header": "Data Layer",
+    "options": [
+      {"label": "Yes, that works", "description": "Proceed with Postgres + Prisma"},
+      {"label": "Different database", "description": "I have other preferences"},
+      {"label": "No preference", "description": "You decide"}
+    ],
+    "multiSelect": false
+  }]
+}
+```

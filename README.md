@@ -79,33 +79,31 @@ Full automation sounds appealing, but it creates problems:
 
 ### 001-scope-project — Requirements Discovery
 
-**Purpose:** Structured discovery for any software work — not just new products, but features, bug fixes, security audits, performance optimization, and integrations.
+**Purpose:** Iterative discovery for any software work. Keeps asking questions until requirements are complete.
 
-**Supported Project Types:**
-| Type | Output Document |
-|------|-----------------|
-| 🆕 New Product/Feature | PRD (Product Requirements) |
-| 🔧 Refactor/Improvement | Technical Specification |
-| 🐛 Bug Fix | Bug Report with root cause |
-| 🔒 Security Audit | Security Assessment scope |
-| ⚡ Performance | Performance Optimization plan |
-| 🔗 Integration/Migration | Integration Specification |
+**Works for:** New products, features, bug fixes, refactors, security audits, performance optimization, integrations.
 
-**What it does:**
-- Guides you through **21 adaptive questioning phases**
-- Questions adapt based on project type (features vs security vs performance)
-- Captures requirements, constraints, and **code standards**
-- Produces a detailed requirements document ready for execution
-- Ensures nothing is missed before work begins
+**How it works:**
+1. **Understand the work** — What type of project is this?
+2. **Iterative questioning** — Keep asking until all required information is captured
+3. **Completeness check** — Summarize everything, confirm with user
+4. **Generate document** — Produce requirements doc ready for execution
 
-**Human involvement:** You answer discovery questions, shaping the project scope.
+**Key principle:** No rigid phases. The model follows threads naturally, diving deeper when answers reveal complexity, and keeps asking until it has everything needed.
 
-**Code Standards (Phase 21):** Captures your coding conventions — function style, TypeScript strictness, naming, formatting. These flow into ARCHITECTURE.md and are enforced during code simplification (003 Step 8.5).
+**Required outcomes** (varies by project type):
+- The Why — Problem, who's affected, urgency
+- Success Criteria — How we know it's done
+- Scope — What's in, out, deferred
+- Technical Approach — Stack, architecture, decisions
+- Risks & Constraints — What could go wrong
+
+**Human involvement:** You answer questions and confirm understanding before document generation.
 
 **Output:**
 ```
 .claude/
-└── PRD.md              # Requirements document (adapted to project type)
+└── [TYPE]-[name].md    # PRD, BUGFIX, SECURITY, REFACTOR, etc.
 ```
 
 ```bash

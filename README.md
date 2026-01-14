@@ -170,7 +170,7 @@ Task complexity guides model selection:
 ┌─────────────────────────────────────────────────────────────┐
 │ 003-execute-tasks                                           │
 ├─────────────────────────────────────────────────────────────┤
-| 1. Loads context modules                                    │
+│ 1. Loads context modules                                    │
 │ 2. Read task from tasks.json                                │
 │ 3. Generate prompt with full project context                │
 │ 4. Ask YOU: Provider? Model? Permissions?                   │
@@ -178,10 +178,14 @@ Task complexity guides model selection:
 │ 6. Subagent completes task + emits completion signal        │
 │ 7. Parse completion signal                                  │
 │ 8. Sweep & enhance documentation                            │
-│ 9. Simplify & polish code (from context modules standards)  │
+│ 9. Simplify & polish code (conditional — see below)         │
 │ 10. Report results — YOU decide to continue or stop         │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+**Step 9 (Code Simplification):** This step applies project code standards from ARCHITECTURE.md to new/modified code. It's conditional:
+- **Applied for:** Feature code, business logic, complex components
+- **Skipped for:** Config files, trivial changes, setup tasks
 
 ```bash
 /003-execute-tasks              # Run next pending task
@@ -199,7 +203,7 @@ After running through the pipeline, your project will have:
 ```
 my-project/
 ├── .claude/                        # All project metadata & documentation
-│   ├── PRD.md                      # Product requirements (from 001)
+│   ├── PRD.md                      # Requirements (from 001, if saved)
 │   ├── ARCHITECTURE.md             # Technical blueprint
 │   ├── DECISIONS.md                # Architectural decisions
 │   ├── ENV-SETUP.md                # Environment requirements

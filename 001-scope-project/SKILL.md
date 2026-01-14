@@ -151,7 +151,9 @@ For large projects, this might be a full summary.
 
 Use [prd-template.md](references/prd-template.md) as a guide, but only include sections that are relevant.
 
-Save to `.claude/` directory when appropriate.
+**Saving:**
+- Tiny/Small: May not need a file — just proceed to implementation
+- Medium+: Save as `.claude/PRD.md` — this becomes input for `/002-setup-project`
 
 ---
 

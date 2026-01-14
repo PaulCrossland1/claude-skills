@@ -11,7 +11,7 @@ This document defines how subagents interact with projects created via `/002-set
 ```
 project-name/
 ├── .claude/                    # All project metadata & documentation
-│   ├── PRD.md                  # Product requirements (from 001)
+│   ├── PRD.md                  # Requirements (from 001, if saved)
 │   ├── ARCHITECTURE.md         # Technical blueprint
 │   ├── DECISIONS.md            # Architecture decisions
 │   ├── ENV-SETUP.md            # Environment requirements

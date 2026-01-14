@@ -6,7 +6,8 @@
 {
   "project": {
     "name": "project-name",
-    "prd_path": "./.claude/PRD.md",
+    "requirements_source": "file" | "chat",
+    "requirements_path": "./.claude/PRD.md",  // optional, if source is "file"
     "created_at": "2024-01-15T10:00:00Z",
     "total_tasks": 25,
     "completed_tasks": 0
@@ -14,6 +15,10 @@
   "tasks": [Task]
 }
 ```
+
+**Note**: `requirements_source` indicates where requirements came from:
+- `"file"` — A saved PRD.md or requirements doc (path in `requirements_path`)
+- `"chat"` — Requirements gathered from conversation (summarized in CONTEXT.md)
 
 ## Task Object
 
@@ -176,7 +181,7 @@ Requires human confirmation (use sparingly).
   "depends_on": ["T004"],
   "estimated_complexity": "simple",
   "context_files": [
-    ".claude/PRD.md#genome-parameters",
+    ".claude/CONTEXT.md",
     ".claude/ARCHITECTURE.md#data-models",
     "shared/types/index.ts"
   ],

@@ -133,7 +133,7 @@ If in a project directory, verify expected structure.
 ```
 Project Structure:
   ✓ .claude/                    Project metadata directory
-  ✓ .claude/PRD.md              Product requirements (from 001)
+  ✓ .claude/PRD.md              Requirements (from 001, if saved)
   ✓ .claude/ARCHITECTURE.md     Technical blueprint (from 002)
   ✓ .claude/DECISIONS.md        Architecture decisions
   ✓ .claude/ENV-SETUP.md        Environment requirements

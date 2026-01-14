@@ -37,6 +37,26 @@ Map PRD sections to development phases:
 | UI/UX | ui |
 | Non-Functional (testing) | testing |
 
+### Working from Chat Context (No PRD File)
+
+If requirements came from conversation rather than a saved PRD file:
+
+1. **Summarize key requirements** in CONTEXT.md under "Project Summary"
+2. **Map discussed features to phases** using the same logic as PRD sections
+3. **Reference "chat context"** in task descriptions rather than "PRD section X"
+4. **Set `requirements_source: "chat"`** in tasks.json project metadata
+
+Example task description when working from chat:
+```
+"description": "Create User model with fields discussed: id, email, name, createdAt.
+See CONTEXT.md for full requirements summary."
+```
+
+The phase mapping still applies — just derive phases from what was discussed:
+- Stack decisions mentioned → foundation
+- Entities/data mentioned → data-layer
+- Features/behavior described → core, api, ui
+
 ### Step 2: Extract Components per Phase
 
 For each phase, list distinct components:

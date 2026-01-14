@@ -9,18 +9,19 @@ Transform a completed PRD into an executable project structure with sequential t
 
 ## What This Skill Generates
 
+**All project documentation lives under `.claude/`** — single source of truth:
+
 ```
 project-name/
-├── .claude/                    # AI orchestration
+├── .claude/                    # All project metadata & documentation
+│   ├── PRD.md                  # Product requirements (from 001)
+│   ├── ARCHITECTURE.md         # Technical blueprint
+│   ├── DECISIONS.md            # Architecture decisions
+│   ├── ENV-SETUP.md            # Environment requirements
 │   ├── tasks.json              # Sequential task breakdown
 │   ├── CONTEXT.md              # Current state (agent reads first)
 │   ├── PROGRESS-NOTES.md       # Append-only work log
 │   └── BLOCKERS.md             # Human intervention needed
-├── docs/
-│   ├── PRD.md                  # Original PRD
-│   ├── ARCHITECTURE.md         # Technical blueprint
-│   ├── ENV-SETUP.md            # Environment requirements
-│   └── DECISIONS.md            # Architecture decisions
 └── [empty project structure]
 ```
 
@@ -62,7 +63,7 @@ Ask user for PRD location if not obvious:
 
 ### 3. Generate Architecture Document
 
-Read PRD and generate `docs/ARCHITECTURE.md`:
+Read PRD and generate `.claude/ARCHITECTURE.md`:
 - Extract tech stack decisions
 - Map data models
 - Document API design
@@ -98,8 +99,8 @@ Create remaining docs using templates from [document-templates.md](references/do
 - `.claude/CONTEXT.md` — Initial state summary
 - `.claude/PROGRESS-NOTES.md` — Empty log ready for entries
 - `.claude/BLOCKERS.md` — Empty blockers file
-- `docs/ENV-SETUP.md` — Environment requirements from PRD
-- `docs/DECISIONS.md` — Initial architecture decisions
+- `.claude/ENV-SETUP.md` — Environment requirements from PRD
+- `.claude/DECISIONS.md` — Initial architecture decisions
 
 ### 6. Create Project Structure
 

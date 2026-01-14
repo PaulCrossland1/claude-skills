@@ -2,18 +2,19 @@
 
 ## Directory Structure
 
+**All project documentation lives under `.claude/`** — single source of truth:
+
 ```
 project-name/
-├── .claude/                    # AI orchestration files
+├── .claude/                    # All project metadata & documentation
+│   ├── PRD.md                  # Product requirements (from 001)
+│   ├── ARCHITECTURE.md         # Technical blueprint
+│   ├── DECISIONS.md            # Architecture decisions
+│   ├── ENV-SETUP.md            # Environment requirements
 │   ├── tasks.json              # Task breakdown
 │   ├── CONTEXT.md              # Current state (updated each task)
 │   ├── PROGRESS-NOTES.md       # Append-only work log
 │   └── BLOCKERS.md             # Issues needing human
-├── docs/
-│   ├── PRD.md                  # Original PRD (copied)
-│   ├── ARCHITECTURE.md         # Technical blueprint
-│   ├── ENV-SETUP.md            # Environment requirements
-│   └── DECISIONS.md            # Architecture decisions
 └── [project source files...]
 ```
 

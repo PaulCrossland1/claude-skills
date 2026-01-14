@@ -6,19 +6,19 @@ This document defines how subagents interact with projects created via `/002-set
 
 ## Project Structure (Standard)
 
-Every project follows this structure:
+**All project documentation lives under `.claude/`** — single source of truth:
 
 ```
 project-name/
-├── .claude/                    # AI orchestration
+├── .claude/                    # All project metadata & documentation
+│   ├── PRD.md                  # Product requirements (from 001)
+│   ├── ARCHITECTURE.md         # Technical blueprint
+│   ├── DECISIONS.md            # Architecture decisions
+│   ├── ENV-SETUP.md            # Environment requirements
 │   ├── tasks.json              # Sequential task breakdown
 │   ├── CONTEXT.md              # Current state (READ FIRST)
 │   ├── PROGRESS-NOTES.md       # Append-only work log
 │   └── BLOCKERS.md             # Human intervention needed
-├── docs/
-│   ├── PRD.md                  # Original requirements
-│   ├── ARCHITECTURE.md         # Technical blueprint
-│   └── ENV-SETUP.md            # Environment requirements
 └── [project source files]
 ```
 
@@ -217,17 +217,17 @@ Cannot proceed with auth integration - CLERK_SECRET_KEY not set.
 
 ---
 
-## Orchestrator Parsing
+## Signal Parsing
 
-The orchestrator should:
+After the subagent completes, the skill parses the completion signal:
 
-1. **Find the completion signal** by searching for `--- TASK COMPLETION ---`
+1. **Find the signal** by searching for `--- TASK COMPLETION ---`
 2. **Parse YAML content** between delimiters
 3. **Verify updates** were made (check booleans)
-4. **Decide next action**:
-   - `completed` → Spawn next task
-   - `blocked` → Alert human
-   - `failed` → Review and decide
+4. **Report to user**:
+   - `completed` → Show results, suggest next task
+   - `blocked` → Alert user, show blocker details
+   - `failed` → Show failure, user decides next step
 
 ---
 

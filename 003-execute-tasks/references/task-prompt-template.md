@@ -47,7 +47,7 @@ Complete task **{TASK_ID}**: {TASK_NAME}
 ## Execution Requirements
 
 1. **Read the context files** listed above before starting
-2. **Follow patterns** from docs/ARCHITECTURE.md
+2. **Follow patterns** from .claude/ARCHITECTURE.md
 3. **Stay within scope** — only do what this task requires
 4. **Verify your work** by running the success criteria
 5. **Update documentation**:
@@ -90,7 +90,7 @@ next_task: [{NEXT_TASK_ID}|null]
 --- END COMPLETION ---
 ```
 
-This completion signal is REQUIRED. The orchestrator uses it to track progress.
+This completion signal is REQUIRED for tracking progress.
 
 ---
 
@@ -172,8 +172,8 @@ Define the User entity with Prisma schema and TypeScript interface. Include fiel
 **Depends On**: T004
 
 ### Files to Read First
-- docs/PRD.md (section 4: Data Models)
-- docs/ARCHITECTURE.md (section: Data Models)
+- .claude/PRD.md (section 4: Data Models)
+- .claude/ARCHITECTURE.md (section: Data Models)
 - prisma/schema.prisma
 
 ### Files to Create/Modify

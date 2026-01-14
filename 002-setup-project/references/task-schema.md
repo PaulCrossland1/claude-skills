@@ -6,7 +6,7 @@
 {
   "project": {
     "name": "project-name",
-    "prd_path": "./docs/PRD.md",
+    "prd_path": "./.claude/PRD.md",
     "created_at": "2024-01-15T10:00:00Z",
     "total_tasks": 25,
     "completed_tasks": 0
@@ -176,8 +176,8 @@ Requires human confirmation (use sparingly).
   "depends_on": ["T004"],
   "estimated_complexity": "simple",
   "context_files": [
-    "docs/PRD.md#genome-parameters",
-    "docs/ARCHITECTURE.md#data-models",
+    ".claude/PRD.md#genome-parameters",
+    ".claude/ARCHITECTURE.md#data-models",
     "shared/types/index.ts"
   ],
   "output_files": [

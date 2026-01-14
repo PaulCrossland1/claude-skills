@@ -31,13 +31,24 @@ Full automation sounds appealing, but it creates problems:
 │   └──────────────┘    └──────────────┘    └──────┬───────┘  │   │
 │         │                    │                   │          │   │
 │         ▼                    ▼                   ▼          │   │
-│     Human guides        Human reviews       Human runs      │   │
-│     discovery           task breakdown      one task     ───┘   │
-│                                             at a time           │
+│     Human guides        Human reviews       Human chooses   │   │
+│     discovery           task breakdown      provider/model──┘   │
 │                                                                  │
-│   YOU are the orchestrator — not a nested agent                 │
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │  SUBAGENT (your choice)                                  │   │
+│   │  ┌─────────┐  ┌─────────┐  ┌─────────┐                  │   │
+│   │  │ Claude  │  │ Gemini  │  │  Codex  │                  │   │
+│   │  │ haiku   │  │         │  │  mini   │                  │   │
+│   │  │ sonnet  │  │         │  │  medium │                  │   │
+│   │  │ opus    │  │         │  │  max    │                  │   │
+│   │  └─────────┘  └─────────┘  └─────────┘                  │   │
+│   └─────────────────────────────────────────────────────────┘   │
+│                                                                  │
+│   YOU are the orchestrator — not a nested agent                  │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+**Key insight:** You choose the right model for each task. Simple tasks? Use haiku (fast, cheap). Complex architecture? Use opus (most capable). Different providers excel at different things.
 
 ---
 
@@ -126,17 +137,32 @@ All documentation lives under `.claude/` — single source of truth:
 
 ### 003-execute-tasks — Task Execution
 
-**Purpose:** Execute a single task by spawning a subagent (Claude, Gemini, or Codex CLI).
+**Purpose:** Execute a single task by spawning a **subagent of your choice** (Claude, Gemini, or Codex CLI).
 
 **What it does:**
 - Reads task details from tasks.json
 - Generates a detailed prompt with full project context
-- Asks for provider/model/permission preferences
+- **Asks YOU to choose: Provider → Model → Permissions**
 - Spawns the appropriate CLI tool
 - Parses completion signals
-- Updates project state files
+- Sweeps documentation updates
+- **Simplifies/polishes code** the subagent wrote
+- Reports results for your review
 
 **Human involvement:** You choose provider, model, and permissions for each task. You decide when to run the next task.
+
+**Provider & Model Selection:**
+
+| Provider | Models | Best For |
+|----------|--------|----------|
+| **Claude** | haiku, sonnet, opus | General coding, most tasks |
+| **Gemini** | default | Alternative perspective |
+| **Codex** | mini, medium, max | OpenAI-style completion |
+
+Task complexity guides model selection:
+- `simple` → haiku / mini (fast, cheap)
+- `moderate` → sonnet / medium (balanced)
+- `complex` → opus / max (most capable)
 
 **Execution Flow:**
 ```
@@ -144,13 +170,14 @@ All documentation lives under `.claude/` — single source of truth:
 │ 003-execute-tasks                                           │
 ├─────────────────────────────────────────────────────────────┤
 │ 1. Read task from tasks.json                                │
-│ 2. Generate prompt with context                             │
+│ 2. Generate prompt with full project context                │
 │ 3. Ask YOU: Provider? Model? Permissions?                   │
-│ 4. Write prompt to /tmp/subagent_prompt.txt                 │
-│ 5. Execute: claude --model X -p "$(cat /tmp/...)"           │
+│ 4. Spawn subagent CLI with your choices                     │
+│ 5. Subagent completes task + emits completion signal        │
 │ 6. Parse completion signal                                  │
-│ 7. Update CONTEXT.md, PROGRESS-NOTES.md, tasks.json         │
-│ 8. Report results — YOU decide to continue or stop          │
+│ 7. Sweep & enhance documentation                            │
+│ 8. Simplify & polish code (from context modules standards)  │
+│ 9. Report results — YOU decide to continue or stop          │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -291,9 +318,10 @@ We tried it. Here's what happens:
 1. **Context Preservation** — `CONTEXT.md` gives any agent full project awareness
 2. **Resumability** — Pick up exactly where you left off
 3. **Scalability** — Dependency management and phased execution for large projects
-4. **Provider Flexibility** — Choose the right model for each task
-5. **Cost Efficiency** — Use cheaper models for simple tasks, expensive for complex
-6. **Debugging** — When something fails, you know exactly which task and why
+4. **Provider Flexibility** — Choose Claude/Gemini/Codex and the specific model for each task
+5. **Cost Efficiency** — Use haiku for simple tasks ($), opus for complex ($$$)
+6. **Quality Control** — Code simplification pass after each task ensures consistency
+7. **Debugging** — When something fails, you know exactly which task and why
 
 ---
 

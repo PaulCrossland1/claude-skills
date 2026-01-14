@@ -21,9 +21,9 @@ Full automation sounds appealing, but it creates problems:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    HUMAN-DIRECTED PIPELINE                       │
+│                    HUMAN-DIRECTED PIPELINE                      │
 ├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
+│                                                                 │
 │   ┌──────────────┐    ┌──────────────┐    ┌──────────────┐      │
 │   │     001      │    │     002      │    │     003      │      │
 │   │    SCOPE     │───▶│    SETUP     │───▶│   EXECUTE    │◀─┐   │
@@ -33,9 +33,9 @@ Full automation sounds appealing, but it creates problems:
 │         ▼                    ▼                   ▼          │   │
 │     Human guides        Human reviews       Human chooses   │   │
 │     discovery           task breakdown      provider/model──┘   │
-│                                                                  │
+│                                                                 │
 │   ┌─────────────────────────────────────────────────────────┐   │
-│   │  SUBAGENT (your choice)                                  │   │
+│   │  SUBAGENT (your choice)                                 │   │
 │   │  ┌─────────┐  ┌─────────┐  ┌─────────┐                  │   │
 │   │  │ Claude  │  │ Gemini  │  │  Codex  │                  │   │
 │   │  │ haiku   │  │         │  │  mini   │                  │   │
@@ -43,8 +43,8 @@ Full automation sounds appealing, but it creates problems:
 │   │  │ opus    │  │         │  │  max    │                  │   │
 │   │  └─────────┘  └─────────┘  └─────────┘                  │   │
 │   └─────────────────────────────────────────────────────────┘   │
-│                                                                  │
-│   YOU are the orchestrator — not a nested agent                  │
+│                                                                 │
+│   YOU are the orchestrator — not a nested agent                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 

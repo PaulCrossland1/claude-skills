@@ -56,9 +56,9 @@ Everything after "use /subagent to" is the TASK.
 **Gemini:** Default model (no selection)
 
 **Codex:**
-- gpt-5.2-codex-medium (Recommended)
-- gpt-5.1-codex-mini-low — Lightweight
-- gpt-5.1-codex-max-xhigh — Maximum
+- gpt-5.2-codex (Recommended)
+- gpt-5.1-codex-mini — Lightweight
+- gpt-5.1-codex-max — Maximum
 
 ### Step 4: Permission Mode
 
@@ -172,9 +172,9 @@ Follow the full ad-hoc flow (Steps 2-4) with complexity-based recommendations.
 Recommend based on task complexity:
 | Complexity | Claude | Codex |
 |------------|--------|-------|
-| `trivial`, `simple` | haiku | gpt-5.1-codex-mini-low |
-| `moderate` | sonnet | gpt-5.2-codex-medium |
-| `complex` | opus | gpt-5.1-codex-max-xhigh |
+| `trivial`, `simple` | haiku | gpt-5.1-codex-mini |
+| `moderate` | sonnet | gpt-5.2-codex |
+| `complex` | opus | gpt-5.1-codex-max |
 
 (Gemini uses default model — skip this step)
 
@@ -333,7 +333,7 @@ gemini --approval-mode auto_edit "PROMPT"
 gemini -y "PROMPT"
 
 # Codex
-codex exec --skip-git-repo-check --full-auto --model gpt-5.2-codex-medium "PROMPT"
+codex exec --skip-git-repo-check --full-auto --model gpt-5.2-codex "PROMPT"
 ```
 
 ---

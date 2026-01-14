@@ -77,29 +77,39 @@ Full automation sounds appealing, but it creates problems:
 
 ---
 
-### 001-scope-project — PRD Creation
+### 001-scope-project — Requirements Discovery
 
-**Purpose:** Transform a vague idea into a comprehensive Product Requirements Document through structured discovery.
+**Purpose:** Structured discovery for any software work — not just new products, but features, bug fixes, security audits, performance optimization, and integrations.
+
+**Supported Project Types:**
+| Type | Output Document |
+|------|-----------------|
+| 🆕 New Product/Feature | PRD (Product Requirements) |
+| 🔧 Refactor/Improvement | Technical Specification |
+| 🐛 Bug Fix | Bug Report with root cause |
+| 🔒 Security Audit | Security Assessment scope |
+| ⚡ Performance | Performance Optimization plan |
+| 🔗 Integration/Migration | Integration Specification |
 
 **What it does:**
-- Guides you through **21 structured questioning phases**
-- Captures functional requirements, user stories, constraints
-- Defines tech stack, architecture, and **code standards**
-- Produces a detailed PRD ready for implementation
-- Ensures nothing is missed before coding begins
+- Guides you through **21 adaptive questioning phases**
+- Questions adapt based on project type (features vs security vs performance)
+- Captures requirements, constraints, and **code standards**
+- Produces a detailed requirements document ready for execution
+- Ensures nothing is missed before work begins
 
-**Human involvement:** You answer discovery questions, shaping the project vision.
+**Human involvement:** You answer discovery questions, shaping the project scope.
 
-**Code Standards (Phase 21):** The PRD captures your coding conventions — function style, TypeScript strictness, naming, formatting. These flow into ARCHITECTURE.md and are enforced during code simplification (003 Step 8.5).
+**Code Standards (Phase 21):** Captures your coding conventions — function style, TypeScript strictness, naming, formatting. These flow into ARCHITECTURE.md and are enforced during code simplification (003 Step 8.5).
 
 **Output:**
 ```
 .claude/
-└── PRD.md              # Complete product requirements (incl. code standards)
+└── PRD.md              # Requirements document (adapted to project type)
 ```
 
 ```bash
-/001-scope-project    # Start PRD creation wizard
+/001-scope-project    # Start requirements discovery
 ```
 
 ---

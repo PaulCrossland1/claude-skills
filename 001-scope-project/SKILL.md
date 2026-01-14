@@ -1,11 +1,13 @@
 ---
 name: 001-scope-project
-description: Comprehensive PRD creation through iterative discovery. Guides users through structured questioning phases to capture every detail needed for software development. Use when user wants to plan a new project, create a PRD, define requirements, start building something new, or needs help structuring a software idea before implementation.
+description: Comprehensive project scoping through iterative discovery. Guides users through structured questioning phases to capture every detail needed for software work — whether building new products, adding features, auditing security, optimizing performance, fixing bugs, or migrating systems. Use when user wants to plan any software project or needs help structuring requirements before implementation.
 ---
 
-# Start Project — Gold Standard PRD Discovery
+# Start Project — Gold Standard Discovery
 
-Create a zero-ambiguity Product Requirements Document by iteratively gathering all requirements through 20 structured phases. The goal: produce a blueprint so complete that any competent team could build it without asking questions.
+Create a zero-ambiguity requirements document by iteratively gathering all relevant details through structured phases. The goal: produce a blueprint so complete that any competent team could execute it without asking questions.
+
+**Works for:** New products, features, refactors, bug fixes, security audits, performance optimization, integrations, and migrations.
 
 ## Workflow
 
@@ -16,18 +18,31 @@ Start with AskUserQuestion:
 ```json
 {
   "questions": [{
-    "question": "What are you trying to build?",
+    "question": "What type of work is this?",
     "header": "Project Type",
     "options": [
-      {"label": "New product from scratch", "description": "Greenfield development"},
-      {"label": "New feature", "description": "Adding to existing product"},
-      {"label": "Improvement/refactor", "description": "Enhancing existing functionality"},
-      {"label": "Integration", "description": "Connecting with external systems"}
+      {"label": "New product", "description": "Building from scratch (greenfield)"},
+      {"label": "New feature", "description": "Adding capability to existing product"},
+      {"label": "Improvement/refactor", "description": "Enhancing or restructuring existing code"},
+      {"label": "Bug fix/investigation", "description": "Diagnosing and fixing issues"}
+    ],
+    "multiSelect": false
+  },
+  {
+    "question": "Any specialized focus?",
+    "header": "Focus Area",
+    "options": [
+      {"label": "General development", "description": "Standard feature/product work"},
+      {"label": "Security audit", "description": "Vulnerability assessment and hardening"},
+      {"label": "Performance optimization", "description": "Speed, efficiency, resource usage"},
+      {"label": "Integration/migration", "description": "Connecting systems or moving platforms"}
     ],
     "multiSelect": false
   }]
 }
 ```
+
+The combination of **Project Type** + **Focus Area** determines which phases apply and how questions are framed.
 
 ### 2. Execute Discovery Phases
 
@@ -57,6 +72,30 @@ Work through all 20 phases from [question-phases.md](references/question-phases.
 | **20** | Implementation | File structure, patterns, testing, docs |
 | **21** | Code Standards | Conventions, style, formatting, quality rules |
 
+### Phase Applicability by Project Type
+
+Not all phases apply to all project types. Use this matrix:
+
+| Phase | New Product | New Feature | Refactor | Bug Fix | Security | Performance | Integration |
+|-------|:-----------:|:-----------:|:--------:|:-------:|:--------:|:-----------:|:-----------:|
+| 1. Executive Context | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 2. Personas/Stakeholders | ✓ | ✓ | lite | lite | threat actors | lite | ✓ |
+| 3. Success Metrics | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 4. User Stories/Scope | ✓ | ✓ | change scope | repro steps | attack vectors | bottlenecks | data flows |
+| 5. Functional Reqs | ✓ | ✓ | current vs target | root cause | vulnerabilities | hot paths | endpoints |
+| 6. Logic & Rules | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ | ✓ |
+| 7. Edge Cases | ✓ | ✓ | ✓ | ✗ | exploit scenarios | load scenarios | failure modes |
+| 8-9. UX/Design | ✓ | ✓ | if UI changes | ✗ | ✗ | ✗ | ✗ |
+| 10-14. Tech Stack | choose | document existing | document existing | document existing | audit existing | audit existing | map systems |
+| 15. API/Architecture | ✓ | ✓ | current state | affected areas | attack surface | performance profile | integration points |
+| 16. Perf & Security | ✓ | ✓ | ✓ | ✗ | **primary focus** | **primary focus** | ✓ |
+| 17. Operational | ✓ | lite | lite | ✗ | compliance | monitoring | ✓ |
+| 18. Go-to-Market | ✓ | ✓ | rollout plan | ✗ | remediation plan | rollout plan | migration plan |
+| 19. Scope Boundaries | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 20-21. Implementation | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+
+**Legend:** ✓ = full phase | lite = abbreviated | ✗ = skip | *text* = alternative framing
+
 ### Phase Execution Rules
 
 **Per Phase:**
@@ -66,15 +105,22 @@ Work through all 20 phases from [question-phases.md](references/question-phases.
 4. Move to next phase when complete
 
 **Adaptive Skipping:**
+- Skip UX phases (8-9) for backend-only, security audits, performance work
 - Skip Auth (12) if no authentication needed
 - Skip Payments (14) if no monetization
-- Skip Sound/Haptics (9) if not a game/interactive
 - Skip i18n (17) if English-only v1
-- Skip GTM (18) for internal tools
+- Skip GTM (18) for internal tools or bug fixes
+
+**Project-Type Adaptations:**
+- **Security audits**: Replace personas with threat actors, features with vulnerabilities
+- **Performance**: Focus on bottlenecks, metrics, profiling results
+- **Bug fixes**: Emphasize reproduction steps, root cause, affected areas
+- **Existing codebases**: Tech stack phases become "document current state" not "choose"
 
 **Consolidation:**
-- Tech phases (10-14) can be 2-3 rounds if user knows their stack
+- Tech phases (10-14) can be 2-3 rounds if documenting existing stack
 - Simple projects can combine phases 5-7
+- Bug fixes may only need phases 1, 3, 4, 5, 15, 19-21
 
 ### 3. Confirm Completeness
 

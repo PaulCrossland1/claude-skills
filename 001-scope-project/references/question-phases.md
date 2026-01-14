@@ -1,52 +1,80 @@
-# Discovery Question Phases — Gold Standard PRD
+# Discovery Question Phases — Adaptive by Project Type
 
 Iterative questioning phases to produce a zero-ambiguity blueprint.
 Use AskUserQuestion tool for each phase. Ask 2-4 questions per turn maximum.
+
+**Adapt questions based on project type:**
+- 🆕 **New Product/Feature** — Full discovery, choose technologies
+- 🔧 **Refactor/Improvement** — Document current state, define target state
+- 🐛 **Bug Fix** — Reproduction, root cause, affected areas
+- 🔒 **Security Audit** — Threat actors, attack surface, vulnerabilities
+- ⚡ **Performance** — Bottlenecks, metrics, profiling
+- 🔗 **Integration/Migration** — Systems mapping, data flows, cutover
 
 ---
 
 ## Phase 1: Executive Context (The "Why")
 
-**Goal**: Establish strategic foundation and ownership
+**Goal**: Establish foundation, ownership, and motivation
 
 ### Questions
 
 1. **Document Control**
-   - "Who owns this PRD?" (Product Manager, Tech Lead, Founder)
-   - "Who are the key reviewers/stakeholders?"
-   - "What's the target approval date?"
+   - "Who owns this work?" (Product Manager, Tech Lead, Security Team, etc.)
+   - "Who are the key stakeholders/reviewers?"
+   - "What's the target completion date?"
 
-2. **Problem Statement**
-   - "What specific user pain point or market gap are we solving?"
-   - "How are users solving this today? What's broken about that?"
-   - "Why is NOW the right time to build this?"
+2. **Problem Statement** (adapt by type)
+   - 🆕 **New Product/Feature**: "What user pain point or market gap are we solving?"
+   - 🔧 **Refactor**: "What's wrong with the current implementation? What pain does it cause?"
+   - 🐛 **Bug Fix**: "What's the user-facing impact? How severe is it?"
+   - 🔒 **Security**: "What triggered this audit? (Incident, compliance, proactive)"
+   - ⚡ **Performance**: "What performance issues are users experiencing?"
+   - 🔗 **Integration**: "Why do these systems need to connect? What's the business driver?"
 
-3. **Strategic Alignment**
-   - "What company OKR or goal does this support?"
-   - "How does this fit into the broader product roadmap?"
-   - "What's the opportunity cost of NOT building this?"
+3. **Context & Priority**
+   - "Why is this work important NOW?"
+   - "What's the impact of NOT doing this?"
+   - "Any relevant history or previous attempts?"
 
 ---
 
-## Phase 2: User Personas
+## Phase 2: Personas & Stakeholders
 
-**Goal**: Define exactly who we're building for
+**Goal**: Define who's affected by this work
 
-### Questions
+### Questions (adapt by type)
 
+**🆕 New Product/Feature — User Personas:**
 1. **Primary Persona**
-   - "Give this persona a name and describe them" (e.g., "Bored at Work Bill")
-   - "What's their context when using this?" (At desk, on commute, etc.)
-   - "What's their motivation?" (Kill time, compete, relax, learn)
-   - "What's their technical sophistication?"
+   - "Describe the primary user" (name, context, motivation, tech level)
+   - "What's their context when using this?"
+2. **Secondary Personas** — Other user types affected
+3. **Anti-Personas** — Who is this NOT for?
 
-2. **Secondary Personas** (if applicable)
-   - "Are there other distinct user types?"
-   - For each: name, context, motivation, tech level
+**🔒 Security Audit — Threat Actors:**
+1. **External Threats**
+   - "What types of attackers are we defending against?" (Script kiddies, organized crime, nation-state, insider)
+   - "What are their motivations?" (Financial, data theft, disruption, espionage)
+2. **Internal Risks**
+   - "Any insider threat concerns?" (Malicious employees, compromised accounts)
+3. **Attack Surface Awareness**
+   - "What assets are most valuable to attackers?"
 
-3. **Anti-Personas**
-   - "Who is this explicitly NOT for?"
-   - "What user behaviors would indicate misfit?"
+**🔧 Refactor / ⚡ Performance / 🐛 Bug Fix — Stakeholders:**
+1. **Affected Users**
+   - "Which user segments are impacted?"
+   - "How are they affected?" (Blocked, degraded experience, workarounds)
+2. **Internal Stakeholders**
+   - "Who requested this work?"
+   - "Who needs to approve changes?"
+3. **Downstream Dependencies**
+   - "What teams/systems depend on this code?"
+
+**🔗 Integration/Migration — Systems & Owners:**
+1. **Source System** — Owner, capabilities, constraints
+2. **Target System** — Owner, capabilities, constraints
+3. **Data Owners** — Who owns the data being moved/connected?
 
 ---
 
@@ -54,73 +82,135 @@ Use AskUserQuestion tool for each phase. Ask 2-4 questions per turn maximum.
 
 **Goal**: Define how we measure success unambiguously
 
-### Questions
+### Questions (adapt by type)
 
-1. **North Star Metric**
-   - "What single metric defines success?"
-   - "What's the target?" (e.g., "D1 Retention > 20%", "Time to value < 30s")
+**🆕 New Product/Feature:**
+1. **North Star Metric** — Single metric that defines success (e.g., D1 Retention > 20%)
+2. **Secondary Metrics** — Supporting health metrics (DAU, conversion, NPS)
+3. **Guardrail Metrics** — What must NOT get worse (cost, error rate)
+4. **Instrumentation** — Analytics events to fire
 
-2. **Secondary Metrics**
-   - "What supporting health metrics matter?"
-   - Examples: DAU, Avg session length, Conversion rate, NPS
+**🔒 Security Audit:**
+1. **Coverage Metrics** — % of codebase reviewed, endpoints tested
+2. **Finding Metrics** — Vulnerabilities by severity (Critical/High/Medium/Low)
+3. **Remediation Metrics** — Time to fix, % resolved before deadline
+4. **Compliance** — Standards to verify against (OWASP Top 10, SOC2, etc.)
 
-3. **Guardrail Metrics**
-   - "What must NOT get worse?"
-   - Examples: Server cost per user < $X, Crash rate < X%, Error rate < X%
+**⚡ Performance:**
+1. **Baseline Metrics** — Current state (p50, p95, p99 latency; throughput; resource usage)
+2. **Target Metrics** — What "good" looks like (e.g., p95 < 200ms)
+3. **Guardrails** — What must not regress (memory, CPU, error rate)
+4. **Load Profile** — Expected traffic patterns, peak load
 
-4. **Instrumentation Plan**
-   - "What analytics events need to be fired?"
-   - For each event: name, properties, trigger condition
-   - Example: `race_start { kart_type, lobby_id, player_count }`
+**🐛 Bug Fix:**
+1. **Resolution Verification** — How do we know it's fixed? (Specific test, user confirmation)
+2. **Regression Prevention** — Tests to add to prevent recurrence
+3. **Impact Confirmation** — Affected users can now complete their task
 
----
+**🔧 Refactor:**
+1. **Before/After Comparison** — Measurable improvement (lines of code, complexity, test coverage)
+2. **Behavior Preservation** — All existing tests still pass
+3. **Non-Regression** — No performance degradation
 
-## Phase 4: User Stories & Journeys
-
-**Goal**: Map the complete user experience
-
-### Questions
-
-1. **Core User Stories**
-   - "List the key user stories in format: As a [persona], I want [action], so that [benefit]"
-   - Prioritize: Must-have vs Nice-to-have
-
-2. **User Flows**
-   - "Walk through the primary user journey step by step"
-   - "What's the happy path from first touch to core value?"
-   - "What are the key decision points?"
-
-3. **Entry Points**
-   - "How do users discover/arrive at this?"
-   - "What's the first thing they see?"
+**🔗 Integration/Migration:**
+1. **Data Integrity** — 100% of records migrated correctly
+2. **Downtime Budget** — Maximum acceptable outage
+3. **Rollback Criteria** — When to abort and restore
 
 ---
 
-## Phase 5: Functional Requirements — Core Features
+## Phase 4: Scope & Scenarios
 
-**Goal**: Define what the system does in detail
+**Goal**: Define what's being done and the key scenarios
 
-### Questions
+### Questions (adapt by type)
 
-1. **Feature Inventory**
-   - "List every feature/capability needed for v1"
-   - Group into: Core (must ship), Important (should ship), Nice-to-have
+**🆕 New Product/Feature — User Stories:**
+1. **Core User Stories** — "As a [persona], I want [action], so that [benefit]"
+2. **User Flows** — Happy path from entry to value
+3. **Entry Points** — How users discover/arrive
 
-2. **Feature Details**
-   - For each core feature:
-     - "What inputs does it take?"
-     - "What outputs does it produce?"
-     - "What's the user interaction model?"
+**🐛 Bug Fix — Reproduction & Impact:**
+1. **Reproduction Steps**
+   - "Exact steps to reproduce the bug"
+   - "Environment details" (browser, OS, account type)
+   - "Frequency" (always, sometimes, specific conditions)
+2. **Expected vs Actual** — What should happen vs what does happen
+3. **Impact Scope** — Which users affected, how severely
 
-3. **Data Requirements**
-   - "What data entities exist?" (Users, Items, Sessions, etc.)
-   - "What are the relationships between them?"
+**🔒 Security — Attack Scenarios:**
+1. **Attack Vectors to Test**
+   - "What attack types are in scope?" (Injection, XSS, CSRF, auth bypass, etc.)
+   - "Which endpoints/features are highest risk?"
+2. **Threat Scenarios** — Specific attack stories to validate against
+3. **Assets at Risk** — What could be compromised if attack succeeds
+
+**⚡ Performance — Bottleneck Identification:**
+1. **Slow Operations** — Which specific operations are slow?
+2. **User-Facing Symptoms** — What do users experience?
+3. **Profiling Data** — Any existing measurements, flame graphs, traces?
+
+**🔧 Refactor — Change Scope:**
+1. **Current State** — What does the code look like now?
+2. **Target State** — What should it look like after?
+3. **Change Boundaries** — What's in scope to change, what's off-limits?
+
+**🔗 Integration/Migration — Data Flows:**
+1. **Data to Move/Connect** — What entities, what volume?
+2. **Transformation Rules** — How does data map between systems?
+3. **Sync Requirements** — One-time, ongoing, real-time?
 
 ---
 
-## Phase 6: Functional Requirements — Logic & Algorithms
+## Phase 5: Requirements & Scope Details
 
-**Goal**: Define the math and business rules precisely
+**Goal**: Define what needs to be done in detail
+
+### Questions (adapt by type)
+
+**🆕 New Product/Feature — Functional Requirements:**
+1. **Feature Inventory** — List features, group by priority (Core, Important, Nice-to-have)
+2. **Feature Details** — For each: inputs, outputs, interaction model
+3. **Data Requirements** — Entities, relationships, storage
+
+**🐛 Bug Fix — Root Cause Analysis:**
+1. **Hypothesis** — What do you think is causing the bug?
+2. **Affected Code** — Which files/functions are likely involved?
+3. **Related Changes** — Any recent deployments that might be related?
+
+**🔒 Security — Audit Scope:**
+1. **Components to Audit**
+   - "Which codebases/repos are in scope?"
+   - "Which are explicitly out of scope?"
+2. **Vulnerability Categories**
+   - "Priority vulnerabilities to check" (OWASP Top 10, specific concerns)
+3. **Access Required**
+   - "What access levels will you test?" (Anonymous, user, admin)
+   - "Need test accounts created?"
+
+**⚡ Performance — Optimization Targets:**
+1. **Hot Paths** — Which code paths need optimization?
+2. **Resource Constraints** — CPU, memory, network, database limits
+3. **Caching Opportunities** — What can be cached?
+
+**🔧 Refactor — Current vs Target:**
+1. **Current Implementation** — Describe what exists
+2. **Pain Points** — What's wrong with it?
+3. **Target Architecture** — What should it look like?
+
+**🔗 Integration — Endpoints & Contracts:**
+1. **Source APIs** — Available endpoints, auth, rate limits
+2. **Target APIs** — Available endpoints, auth, rate limits
+3. **Data Mapping** — Field-by-field mapping between systems
+
+---
+
+## Phase 6: Logic & Rules
+
+**Goal**: Define business rules, algorithms, state machines
+
+**Applies to**: 🆕 New Product/Feature, 🔧 Refactor, 🔗 Integration
+**Skip for**: 🐛 Bug Fix, 🔒 Security (unless auditing specific logic), ⚡ Performance
 
 ### Questions
 
@@ -139,34 +229,51 @@ Use AskUserQuestion tool for each phase. Ask 2-4 questions per turn maximum.
    - "What triggers transitions between states?"
    - Example: `Idle → Matchmaking → Lobby → Racing → Results → Idle`
 
+**🔗 Integration Note**: Document transformation rules here — how data converts between systems.
+
 ---
 
-## Phase 7: Edge Cases (The "What Ifs")
+## Phase 7: Edge Cases & Failure Modes
 
-**Goal**: Handle every unhappy path
+**Goal**: Handle unhappy paths and failure scenarios
 
-### Questions
+**Applies to**: 🆕 New Product/Feature, 🔧 Refactor
+**Alternative framing for**: 🔒 Security, ⚡ Performance, 🔗 Integration
+**Skip for**: 🐛 Bug Fix
 
-1. **User Edge Cases**
-   - "What if user disconnects mid-action?"
-   - "What if user has no data/is new?"
-   - "What if user tries to game the system?"
+### Questions (adapt by type)
 
-2. **Data Edge Cases**
-   - "What if data is missing or malformed?"
-   - "What if two events happen at the exact same time?"
-   - "What are the max/min limits?"
+**🆕 New Product/Feature — Edge Cases:**
+1. **User Edge Cases** — Disconnects, empty state, gaming the system
+2. **Data Edge Cases** — Missing data, malformed input, race conditions
+3. **System Edge Cases** — Service failures, overload, degradation strategy
 
-3. **System Edge Cases**
-   - "What if a dependent service fails?"
-   - "What if load exceeds expectations?"
-   - "What's the graceful degradation strategy?"
+**🔒 Security — Exploit Scenarios:**
+1. **Input Manipulation** — What happens with malicious input?
+2. **Authentication Bypass** — Session hijacking, token theft scenarios
+3. **Authorization Escalation** — Can users access others' data?
+4. **Rate Limit Evasion** — How could limits be circumvented?
+
+**⚡ Performance — Load Scenarios:**
+1. **Peak Load** — What happens at 10x normal traffic?
+2. **Degradation Behavior** — How should system degrade under load?
+3. **Recovery** — How quickly does system recover after spike?
+4. **Cold Start** — Cache miss, connection pool exhaustion scenarios
+
+**🔗 Integration/Migration — Failure Modes:**
+1. **Partial Failure** — What if migration fails halfway?
+2. **Data Conflicts** — How to handle conflicting records?
+3. **Rollback Scenario** — Can you reverse the migration?
+4. **Sync Failures** — What happens when sync breaks?
 
 ---
 
 ## Phase 8: UX & Design — Screens & States
 
 **Goal**: Define every screen and its states
+
+**Applies to**: 🆕 New Product/Feature, 🔧 Refactor (if UI changes)
+**Skip for**: 🐛 Bug Fix, 🔒 Security, ⚡ Performance, 🔗 Integration (unless UI involved)
 
 ### Questions
 
@@ -190,6 +297,9 @@ Use AskUserQuestion tool for each phase. Ask 2-4 questions per turn maximum.
 
 **Goal**: Define micro-interactions and sensory design
 
+**Applies to**: 🆕 New Product/Feature (especially games, interactive apps)
+**Skip for**: 🐛 Bug Fix, 🔒 Security, ⚡ Performance, 🔗 Integration, most 🔧 Refactors
+
 ### Questions
 
 1. **Interaction Patterns**
@@ -210,245 +320,324 @@ Use AskUserQuestion tool for each phase. Ask 2-4 questions per turn maximum.
 
 ## Phase 10: Technical Stack — Core
 
-**Goal**: Lock down primary technology choices
+**Goal**: Define or document primary technology choices
 
-### Questions
+### Questions (adapt by type)
 
-1. **Frontend**
-   - "What frontend framework?" (React, Next.js, Vue, Svelte, Vanilla)
-   - "UI component library?" (shadcn/ui, MUI, Tailwind only)
-   - "TypeScript or JavaScript?"
+**🆕 New Product — Choose Stack:**
+1. **Frontend** — Framework (React, Next.js, Vue), component library, TypeScript?
+2. **Backend** — Runtime (Node, Python, Go), architecture (monolith, microservices, serverless)
+3. **API Style** — REST, GraphQL, tRPC, WebSocket?
 
-2. **Backend**
-   - "What backend runtime/framework?" (Node/Express, Python/FastAPI, Go, etc.)
-   - "Monolith or microservices?"
-   - "Serverless or traditional?"
-
-3. **API Style**
-   - "REST, GraphQL, tRPC, gRPC, or WebSocket-primary?"
-   - "API versioning strategy?"
+**All Other Types — Document Existing Stack:**
+1. **Current Stack**
+   - "What's the existing tech stack?" (Frontend, backend, database)
+   - "What version are we on?"
+   - "Any known tech debt or outdated dependencies?"
+2. **Constraints**
+   - "Any technology constraints we must work within?"
+   - "Frozen dependencies or locked versions?"
+3. **Integration Points**
+   - "What systems does this code interact with?"
 
 ---
 
 ## Phase 11: Technical Stack — Data Layer
 
-**Goal**: Define database, caching, storage, search
+**Goal**: Define or document data infrastructure
 
-### Questions
+### Questions (adapt by type)
 
-1. **Primary Database**
-   - "What database type?" (PostgreSQL, MySQL, MongoDB, Redis, SQLite)
-   - "What hosting provider?" (Supabase, Neon, PlanetScale, Atlas, Upstash)
-   - "ORM choice?" (Prisma, Drizzle, TypeORM, Raw SQL)
+**🆕 New Product — Choose Data Stack:**
+1. **Primary Database** — Type (PostgreSQL, MongoDB), hosting (Supabase, Neon), ORM (Prisma, Drizzle)
+2. **Caching** — Redis, Memcached, in-memory?
+3. **File Storage** — S3, R2, Cloudinary?
+4. **Search** — PostgreSQL FTS, Algolia, Meilisearch?
 
-2. **Caching**
-   - "Do you need caching?" (Redis, Memcached, In-memory, None)
-   - "What will be cached?" (Sessions, API responses, Game state)
+**All Other Types — Document Existing:**
+1. **Current Data Infrastructure**
+   - "What databases are in use?"
+   - "What's the data model/schema?"
+   - "Current caching strategy?"
+2. **Data Volumes**
+   - "How much data are we dealing with?"
+   - "Growth rate?"
+3. **Known Data Issues**
+   - "Any known data quality problems?"
+   - "Performance bottlenecks in data layer?"
 
-3. **File Storage**
-   - "Will users upload files?" (S3, R2, Supabase Storage, Cloudinary, None)
-   - "File types and size limits?"
-
-4. **Search**
-   - "Need search?" (PostgreSQL FTS, Algolia, Meilisearch, Typesense, None)
+**🔗 Integration/Migration — Source & Target Data:**
+1. **Source Data** — Schema, volume, access method
+2. **Target Data** — Schema, constraints, validation rules
+3. **Data Quality** — Cleanup needed? Duplicates?
 
 ---
 
 ## Phase 12: Technical Stack — Auth & Identity
 
-**Goal**: Define authentication and authorization completely
+**Goal**: Define or audit authentication and authorization
 
-### Questions
+### Questions (adapt by type)
 
-1. **Auth Requirement**
-   - "Does this need auth?" (User accounts, Admin only, Public, Anonymous+Optional)
+**🆕 New Product/Feature — Choose Auth:**
+1. **Auth Requirement** — User accounts, admin only, public, optional?
+2. **Auth Provider** — Clerk, Auth0, Supabase, NextAuth, custom JWT?
+3. **Login Methods** — Email/password, magic link, OAuth, SSO?
+4. **Authorization Model** — Simple, RBAC, team-based?
+5. **Sessions** — JWT, database, Redis? Duration?
 
-2. **Auth Provider** (if needed)
-   - "Which provider?" (Clerk, Auth0, Supabase Auth, NextAuth, Firebase, Custom JWT)
-   - "Login methods?" (Email+Password, Magic Link, OAuth, SSO/SAML)
-   - "Which OAuth providers?" (Google, GitHub, Apple, Discord, etc.)
+**🔒 Security Audit — Assess Auth:**
+1. **Current Auth Implementation**
+   - "How is authentication implemented?"
+   - "How are sessions managed?"
+   - "Where are credentials stored?"
+2. **Known Auth Concerns**
+   - "Any suspected auth vulnerabilities?"
+   - "Recent auth-related incidents?"
+3. **Auth Testing Scope**
+   - "Test password reset flow?"
+   - "Test OAuth integrations?"
+   - "Test session management?"
 
-3. **Authorization**
-   - "What's the authorization model?" (Simple, RBAC, Team-based, Permission-based)
-   - "Define roles and permissions"
-
-4. **Sessions**
-   - "Session strategy?" (JWT, Database, Redis, Provider-managed)
-   - "Session duration?"
+**All Other Types — Document Existing:**
+1. **Current Auth** — What's in place? Any changes needed?
+2. **Auth Constraints** — Must preserve existing auth? Backwards compatibility?
 
 ---
 
 ## Phase 13: Technical Stack — Infrastructure
 
-**Goal**: Define hosting, CI/CD, environments
+**Goal**: Define or document hosting, CI/CD, environments
 
-### Questions
+### Questions (adapt by type)
 
-1. **Hosting**
-   - "Where will this be hosted?" (Vercel, Railway, Render, Fly.io, AWS, GCP)
-   - "Region requirements?"
+**🆕 New Product — Choose Infrastructure:**
+1. **Hosting** — Vercel, Railway, AWS, GCP? Region requirements?
+2. **Environments** — Dev, staging, production? PR previews?
+3. **CI/CD** — GitHub Actions, Vercel built-in? What runs on PR?
+4. **Domain & SSL** — Domain name, DNS provider, SSL handling?
 
-2. **Environments**
-   - "What environments?" (Dev, Staging, Production, Multi-region)
-   - "PR preview deployments?"
+**All Other Types — Document Existing:**
+1. **Current Infrastructure**
+   - "Where is this deployed?"
+   - "What's the CI/CD pipeline?"
+   - "How do deployments work?"
+2. **Environment Access**
+   - "Which environments can we test in?"
+   - "How to access staging/dev?"
+3. **Deployment Constraints**
+   - "Deployment windows?"
+   - "Approval process?"
 
-3. **CI/CD**
-   - "What CI/CD?" (GitHub Actions, Vercel built-in, CircleCI)
-   - "What runs on PR?" (Lint, Test, Build, Preview)
-
-4. **Domain & SSL**
-   - "Domain name?"
-   - "DNS provider?" (Cloudflare, Route53, Vercel)
-   - "SSL handling?" (Platform, Cloudflare, Let's Encrypt)
+**🔒 Security Audit — Infrastructure Assessment:**
+1. **Secrets Management** — How are secrets stored and rotated?
+2. **Network Security** — VPCs, firewalls, WAF?
+3. **Access Controls** — Who has deploy access?
 
 ---
 
 ## Phase 14: Technical Stack — Third-Party Services
 
-**Goal**: Identify all external service dependencies
+**Goal**: Identify or document external service dependencies
 
-### Questions
+### Questions (adapt by type)
 
-1. **Communication**
-   - "Email service?" (Resend, SendGrid, Postmark, SES, None)
-   - "Push notifications?" (OneSignal, Firebase, None)
-   - "SMS?" (Twilio, None)
+**🆕 New Product — Choose Services:**
+1. **Communication** — Email (Resend, SendGrid), push, SMS?
+2. **Payments** — Stripe, Paddle? Pricing model?
+3. **Analytics & Monitoring** — PostHog, Mixpanel? Sentry? Datadog?
+4. **Other Services** — Feature flags? Other APIs?
 
-2. **Payments** (if applicable)
-   - "Payment processor?" (Stripe, Paddle, LemonSqueezy, None)
-   - "Pricing model?" (One-time, Subscription, Usage-based, Freemium)
+**All Other Types — Document Existing:**
+1. **Current Integrations**
+   - "What third-party services are in use?"
+   - "Which are relevant to this work?"
+2. **API Constraints**
+   - "Rate limits to be aware of?"
+   - "Cost implications?"
 
-3. **Analytics & Monitoring**
-   - "Product analytics?" (PostHog, Mixpanel, Amplitude, GA, None)
-   - "Error tracking?" (Sentry, Bugsnag, None)
-   - "Logging/monitoring?" (Datadog, BetterStack, CloudWatch, None)
-
-4. **Other Services**
-   - "Feature flags?" (PostHog, LaunchDarkly, Statsig, None)
-   - "Any other third-party APIs?"
+**🔒 Security Audit — Third-Party Risk:**
+1. **Vendor Assessment** — Which vendors have access to sensitive data?
+2. **API Key Security** — How are third-party API keys stored?
+3. **Data Sharing** — What data is sent to third parties?
 
 ---
 
-## Phase 15: API Contracts & System Architecture
+## Phase 15: Architecture & Affected Areas
 
-**Goal**: Define technical contracts before coding
+**Goal**: Define or document system architecture and affected areas
 
-### Questions
+### Questions (adapt by type)
 
-1. **System Architecture**
-   - "Client/Server model - what runs where?"
-   - "Real-time requirements?" (WebSockets, SSE, Polling)
-   - "Background job needs?" (Queues, Cron, Serverless scheduled)
+**🆕 New Product/Feature — Design Architecture:**
+1. **System Architecture** — Client/server model, real-time needs, background jobs
+2. **API Contract Design** — Endpoints, methods, payloads
+3. **Database Schema** — Entities, fields, relationships, indexes
 
-2. **API Contract Design**
-   - "For each major API endpoint, what are inputs and outputs?"
-   - "What HTTP methods and status codes?"
-   - "Request/response payload shapes?"
+**🐛 Bug Fix — Affected Areas:**
+1. **Code Areas** — Which modules/files are affected?
+2. **Dependencies** — What code depends on the affected area?
+3. **Test Coverage** — Existing tests for this area?
 
-3. **Database Schema**
-   - "What are the core entities and their fields?"
-   - "What are the relationships?"
-   - "What indexes are needed for performance?"
+**🔒 Security Audit — Attack Surface:**
+1. **Entry Points** — All external-facing endpoints
+2. **Authentication Points** — Where auth is checked
+3. **Data Flows** — How sensitive data moves through the system
+4. **Trust Boundaries** — Where do we trust input vs validate?
+
+**⚡ Performance — Performance Profile:**
+1. **Current Architecture** — How does data flow?
+2. **Hot Paths** — Which code paths are performance-critical?
+3. **Database Queries** — Slow queries identified?
+4. **Caching** — Current caching strategy? Opportunities?
+
+**🔗 Integration — Integration Points:**
+1. **System A Interface** — API endpoints, auth, data format
+2. **System B Interface** — API endpoints, auth, data format
+3. **Middleware Needs** — Transformation, validation, error handling
 
 ---
 
 ## Phase 16: Performance & Security
 
-**Goal**: Define non-functional requirements with hard limits
+**Goal**: Define non-functional requirements and security posture
 
-### Questions
+### Questions (adapt by type)
 
-1. **Performance Budgets**
-   - "Initial bundle size limit?" (e.g., < 2MB)
-   - "Time to Interactive target?" (e.g., < 1.5s)
-   - "API response time (p95)?" (e.g., < 500ms)
-   - "Core Web Vitals targets?"
+**🆕 New Product/Feature — Define Requirements:**
+1. **Performance Budgets** — Bundle size, TTI, API response time, Core Web Vitals
+2. **Security Requirements** — Compliance (GDPR, SOC2), sensitive data types, rate limiting
+3. **Platform Compatibility** — Browsers, devices, minimum versions
 
-2. **Security**
-   - "Compliance requirements?" (GDPR, HIPAA, SOC2, PCI-DSS, None)
-   - "Sensitive data types?" (PII, Financial, Health)
-   - "Anti-cheat/anti-abuse measures?"
-   - "Rate limiting requirements?"
+**🔒 Security Audit — DEEP DIVE (Primary Focus):**
+1. **Vulnerability Categories**
+   - "Focus areas?" (OWASP Top 10, specific concerns)
+   - "Previous findings to verify remediation?"
+2. **Compliance Requirements**
+   - "Standards to audit against?" (SOC2, PCI-DSS, HIPAA)
+   - "Specific controls to verify?"
+3. **Sensitive Data Inventory**
+   - "Where is PII stored?"
+   - "Where is financial data processed?"
+   - "Encryption at rest and in transit?"
+4. **Access Controls**
+   - "Review admin access patterns?"
+   - "Audit logging in place?"
+5. **Dependency Security**
+   - "Scan dependencies for vulnerabilities?"
+   - "Review third-party code?"
 
-3. **Platform Compatibility**
-   - "Browser support matrix?" (Chrome, Firefox, Safari, Edge)
-   - "Device support?" (Desktop, Mobile, Tablet)
-   - "Min browser versions?"
+**⚡ Performance Optimization — DEEP DIVE (Primary Focus):**
+1. **Current Baselines**
+   - "What are current metrics?" (p50, p95, p99)
+   - "Profiling data available?"
+2. **Target Improvements**
+   - "What's the target state?"
+   - "Which metrics matter most?"
+3. **Constraints**
+   - "Budget for infrastructure changes?"
+   - "Code change restrictions?"
+4. **Testing Approach**
+   - "Load testing environment?"
+   - "Performance regression tests?"
 
----
-
-## Phase 17: Operational Requirements (The "After")
-
-**Goal**: Define post-launch operational needs
-
-### Questions
-
-1. **Localization (i18n)**
-   - "Multi-language support needed?"
-   - "Which languages for v1?"
-   - "What content needs translation?" (UI, Emails, Support docs)
-
-2. **Accessibility (a11y)**
-   - "Accessibility standard?" (WCAG AA, WCAG AAA, Best effort)
-   - "Keyboard navigation required?"
-   - "Screen reader support?"
-
-3. **Admin & Support Tools**
-   - "What admin capabilities are needed?"
-   - Examples: User management, Content moderation, Refunds, Ban/kick
-   - "What dashboards/reports for ops team?"
-
-4. **Data Management**
-   - "Backup strategy?"
-   - "Data retention policy?"
-   - "User data export/deletion (GDPR)?"
+**All Other Types — Document Constraints:**
+1. **Existing Performance Requirements** — Any SLAs to maintain?
+2. **Security Constraints** — Compliance requirements in place?
 
 ---
 
-## Phase 18: Go-to-Market Strategy
+## Phase 17: Operational Requirements
 
-**Goal**: Define release and rollback plan
+**Goal**: Define operational needs and ongoing maintenance
 
-### Questions
+**Applies to**: 🆕 New Product/Feature (full), others as relevant
+**Skip for**: 🐛 Bug Fix
 
-1. **Release Phases**
-   - "What's the release strategy?"
-   - Options: Alpha (Internal) → Beta (Waitlist) → Canary (5%) → GA (100%)
-   - "Criteria for each phase advancement?"
+### Questions (adapt by type)
 
-2. **Marketing Assets**
-   - "What marketing materials are needed?"
-   - Examples: Screenshots, Trailer, Social copy, Press kit
-   - "Who creates these?"
+**🆕 New Product/Feature — Full Operational Planning:**
+1. **Localization (i18n)** — Languages needed? Translation scope?
+2. **Accessibility (a11y)** — WCAG level? Keyboard nav? Screen readers?
+3. **Admin Tools** — User management, moderation, dashboards?
+4. **Data Management** — Backup, retention, GDPR compliance?
 
-3. **Launch Checklist**
-   - "What must be true before launch?"
-   - "Go/No-Go criteria?"
+**🔒 Security Audit — Operational Security:**
+1. **Logging & Monitoring** — Security event logging in place?
+2. **Incident Response** — Runbook for security incidents?
+3. **Access Review** — Process for reviewing access permissions?
 
-4. **Rollback Plan**
-   - "What's the specific trigger to rollback?"
-   - "How fast can you rollback?"
-   - "What's the communication plan if things break?"
+**⚡ Performance — Monitoring:**
+1. **Performance Monitoring** — Metrics being tracked?
+2. **Alerting** — Alerts for performance degradation?
+3. **Capacity Planning** — How is scaling handled?
+
+**🔗 Integration/Migration — Ongoing Operations:**
+1. **Sync Monitoring** — How to detect sync failures?
+2. **Data Reconciliation** — Process for finding mismatches?
+3. **Support Runbooks** — How to troubleshoot integration issues?
+
+---
+
+## Phase 18: Rollout & Delivery
+
+**Goal**: Plan how changes will be released
+
+**Skip for**: 🐛 Bug Fix (usually goes direct to prod after testing)
+
+### Questions (adapt by type)
+
+**🆕 New Product/Feature — Go-to-Market:**
+1. **Release Phases** — Alpha → Beta → Canary → GA?
+2. **Marketing Assets** — Screenshots, trailer, press kit?
+3. **Launch Checklist** — Go/No-Go criteria?
+4. **Rollback Plan** — Triggers, speed, communication?
+
+**🔒 Security Audit — Remediation Plan:**
+1. **Finding Prioritization** — How will findings be prioritized?
+2. **Remediation Timeline** — SLAs by severity (Critical: 24h, High: 7d, etc.)?
+3. **Verification Process** — How will fixes be verified?
+4. **Communication** — Who receives the report? Disclosure timeline?
+
+**⚡ Performance — Rollout Plan:**
+1. **Staged Rollout** — Canary deployment? % traffic?
+2. **Metrics Monitoring** — What to watch during rollout?
+3. **Rollback Triggers** — When to rollback?
+4. **Success Criteria** — How to know optimization worked?
+
+**🔧 Refactor — Migration Plan:**
+1. **Phased Approach** — All at once or incremental?
+2. **Feature Flags** — Can old code run alongside new?
+3. **Rollback Strategy** — How to revert if needed?
+
+**🔗 Integration/Migration — Cutover Plan:**
+1. **Migration Waves** — What order? Batches?
+2. **Downtime Window** — Acceptable outage?
+3. **Rollback Procedure** — How to reverse?
+4. **Verification Checks** — How to confirm success?
 
 ---
 
 ## Phase 19: Scope Boundaries
 
-**Goal**: Define what's in and what's out
+**Goal**: Define what's in and what's out — applies to ALL project types
 
-### Questions
+### Questions (universal, adapt language)
 
-1. **v1 Scope (Must Ship)**
-   - "What's the absolute minimum for v1?"
-   - "What makes this a complete v1 vs a broken v0.5?"
+1. **In Scope (Must Do)**
+   - 🆕 "What's the absolute minimum for v1?"
+   - 🐛 "What needs to be fixed in this effort?"
+   - 🔒 "What systems/code are being audited?"
+   - ⚡ "What needs to be optimized?"
+   - 🔗 "What data/systems are being migrated?"
 
-2. **v2 Scope (Deferred)**
-   - "What's explicitly deferred to v2?"
-   - "Why deferred?"
+2. **Deferred (Later)**
+   - "What's explicitly deferred to a follow-up?"
+   - "Why deferred?" (Time, complexity, dependencies)
 
-3. **Out of Scope (Never/Not Us)**
-   - "What are we explicitly NOT building?"
-   - "Any related features that are someone else's problem?"
+3. **Out of Scope (Not This Work)**
+   - "What are we explicitly NOT touching?"
+   - "What's someone else's responsibility?"
 
 4. **Open Questions**
    - "What decisions are still unresolved?"
@@ -457,33 +646,43 @@ Use AskUserQuestion tool for each phase. Ask 2-4 questions per turn maximum.
 5. **Risks**
    - "What are the biggest risks?"
    - "What's the mitigation strategy?"
+   - 🔒 "What if we find critical vulnerabilities?"
+   - 🔗 "What if migration data is corrupt?"
 
 ---
 
-## Phase 20: Implementation Preferences
+## Phase 20: Implementation & Deliverables
 
-**Goal**: Guide the actual build
+**Goal**: Define how work will be done and what will be delivered
 
-### Questions
+### Questions (adapt by type)
 
-1. **Code Organization**
-   - "Preferred folder structure?" (Feature-based, Layer-based, Domain-driven)
-   - "Naming conventions?"
+**🆕 New Product/Feature — Implementation Preferences:**
+1. **Code Organization** — Folder structure, naming conventions
+2. **Patterns** — Patterns to follow/avoid, reference code
+3. **Testing** — Unit, integration, E2E? Framework? Coverage target?
+4. **Documentation** — API docs (OpenAPI), architecture diagrams?
 
-2. **Patterns**
-   - "Patterns to follow?"
-   - "Patterns to avoid?"
-   - "Existing code to reference?"
+**🐛 Bug Fix — Fix Approach:**
+1. **Fix Strategy** — Quick patch or proper fix?
+2. **Testing Requirements** — Regression tests to add?
+3. **Verification** — How to verify fix works?
 
-3. **Testing**
-   - "Testing requirements?" (Unit, Integration, E2E)
-   - "Framework preference?" (Vitest, Jest, Playwright, Cypress)
-   - "Coverage targets?"
+**🔒 Security Audit — Deliverables:**
+1. **Report Format** — What format? (PDF, Markdown, JIRA tickets)
+2. **Finding Detail Level** — POC required? Screenshots?
+3. **Remediation Guidance** — Include fix recommendations?
+4. **Retesting** — Will you verify fixes?
 
-4. **Documentation**
-   - "What documentation is needed?"
-   - "API docs?" (OpenAPI/Swagger)
-   - "Architecture diagrams?"
+**⚡ Performance — Deliverables:**
+1. **Analysis Report** — Profiling data, bottleneck identification
+2. **Recommendations** — Prioritized list of optimizations
+3. **Benchmarks** — Before/after measurements
+
+**🔗 Integration/Migration — Deliverables:**
+1. **Runbooks** — Migration procedure documentation
+2. **Rollback Procedure** — Documented rollback steps
+3. **Validation Scripts** — How to verify success
 
 ---
 
@@ -581,20 +780,38 @@ Without explicit standards, each subagent invents its own style, creating incons
 - Provide 2-4 options with descriptions
 - Reference previous answers to show continuity
 
-### Adaptive Rules
+### Adaptive Rules by Project Type
 
-- **Skip phases** that don't apply:
-  - Skip Auth (12) if no authentication
-  - Skip Payments (14) if no monetization
-  - Skip i18n (17) if English-only v1
-  - Skip GTM (18) for internal tools
+**🆕 New Product/Feature:**
+- Full discovery, all phases applicable
+- Consolidate tech phases (10-14) if stack is known
 
-- **Consolidate phases** when user has clear preferences:
-  - Tech stack phases (10-14) can be 2-3 rounds if stack is known
+**🔧 Refactor/Improvement:**
+- Skip UX phases (8-9) unless UI changes
+- Tech phases = document existing, not choose
+- Skip GTM (18), use simple rollout plan
 
-- **Dive deeper** when answers reveal complexity:
-  - Complex algorithms need detailed formulas
-  - Multi-tenant needs detailed role definitions
+**🐛 Bug Fix:**
+- Minimal phases: 1, 3, 4 (repro), 5 (root cause), 15, 19-20
+- Skip UX, tech stack, GTM phases
+
+**🔒 Security Audit:**
+- Replace personas (2) with threat actors
+- Phase 16 is primary focus
+- Replace features (5) with audit scope
+- Replace GTM (18) with remediation plan
+
+**⚡ Performance:**
+- Replace features (5) with optimization targets
+- Phase 16 is primary focus
+- Replace edge cases (7) with load scenarios
+- Skip UX phases (8-9)
+
+**🔗 Integration/Migration:**
+- Replace personas (2) with systems & owners
+- Replace features (5) with data mapping
+- Replace GTM (18) with cutover plan
+- Focus on Phase 7 failure modes
 
 ### Between Phases
 

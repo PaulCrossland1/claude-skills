@@ -1,44 +1,73 @@
-# PRD Template — Gold Standard
+# Requirements Document Template — Adaptive
 
-Use this template to generate the final PRD document. Fill every section.
+Use this template to generate the final requirements document. Adapt sections based on project type.
 
 ---
 
-# [PROJECT_NAME] — Product Requirements Document
+## Project Type Selection
+
+**Choose your project type — this determines which sections to fill:**
+
+| Type | Document Name | Primary Sections | Skip Sections |
+|------|---------------|------------------|---------------|
+| 🆕 **New Product/Feature** | PRD | All | — |
+| 🔧 **Refactor/Improvement** | Technical Spec | 1-6, 9-11, 14-16 | 8 (UX), 13 (GTM) |
+| 🐛 **Bug Fix** | Bug Report | 1, 3-5, 9, 14-16 | 6-8, 12-13 |
+| 🔒 **Security Audit** | Security Assessment | 1-3, 5, 9-11, 14-16 | 6-8, 12 |
+| ⚡ **Performance** | Performance Plan | 1, 3, 5, 9-11, 14-16 | 6-8, 12-13 |
+| 🔗 **Integration/Migration** | Integration Spec | 1-5, 9-11, 14-16 | 6-8, 12 |
+
+---
+
+# [PROJECT_NAME] — [Document Type]
 
 **Version:** v1.0
 **Status:** Draft | In Review | Approved
 **Owner:** [Name, Role]
 **Reviewers:** [Name, Name]
 **Last Updated:** [Date]
+**Project Type:** 🆕 New Product | 🔧 Refactor | 🐛 Bug Fix | 🔒 Security | ⚡ Performance | 🔗 Integration
 
 ---
 
 ## 1. Executive Context (The "Why")
 
 ### Problem Statement
-[What specific user pain point or market gap are we solving?]
+
+*Adapt framing based on project type:*
+
+| Project Type | Problem Framing |
+|--------------|-----------------|
+| 🆕 New Product/Feature | User pain point or market gap |
+| 🔧 Refactor | Technical debt causing issues |
+| 🐛 Bug Fix | User-facing impact of the bug |
+| 🔒 Security | Risk exposure or compliance gap |
+| ⚡ Performance | User experience degradation |
+| 🔗 Integration | Business need for system connection |
 
 | Aspect | Answer |
 |--------|--------|
-| **The Problem** | [What's broken?] |
-| **Who Has It** | [Which users?] |
-| **Current Workaround** | [How do they cope today?] |
-| **Why Now** | [Why is this the right time?] |
+| **The Problem** | [What's broken/missing/risky?] |
+| **Who's Affected** | [Users, teams, or systems impacted] |
+| **Current State** | [How it works today / workarounds] |
+| **Why Now** | [Urgency driver] |
 
-### Strategic Alignment
-| Company Goal | How This Contributes |
-|--------------|---------------------|
-| [OKR/Goal] | [Contribution] |
-
-### Opportunity Cost
-[What happens if we DON'T build this?]
+### Context & Priority
+| Question | Answer |
+|----------|--------|
+| **Why is this important NOW?** | [Urgency driver] |
+| **Impact of NOT doing this** | [Risk or opportunity cost] |
+| **Related history** | [Previous attempts, context] |
 
 ---
 
-## 2. User Personas
+## 2. Personas & Stakeholders
 
-### Primary Persona: [Name]
+*Choose the appropriate framing for your project type:*
+
+### 🆕 New Product/Feature — User Personas
+
+#### Primary Persona: [Name]
 | Attribute | Description |
 |-----------|-------------|
 | **Name** | [e.g., "Bored at Work Bill"] |
@@ -47,50 +76,107 @@ Use this template to generate the final PRD document. Fill every section.
 | **Technical Level** | [Novice/Intermediate/Advanced] |
 | **Key Quote** | ["I wish I could..."] |
 
-### Secondary Persona: [Name] (if applicable)
-| Attribute | Description |
-|-----------|-------------|
-| **Name** | [Name] |
-| **Context** | [Context] |
-| **Motivation** | [Motivation] |
+#### Secondary Personas (if applicable)
+- [Persona 2]: [Context, motivation]
 
-### Anti-Personas (Who This Is NOT For)
+#### Anti-Personas (Who This Is NOT For)
 - [Type] — [Why not]
+
+---
+
+### 🔒 Security Audit — Threat Actors
+
+| Threat Actor | Motivation | Capability | Target Assets |
+|--------------|------------|------------|---------------|
+| Script Kiddie | Curiosity/reputation | Low | Public endpoints |
+| Organized Crime | Financial | Medium-High | Payment data, PII |
+| Insider Threat | Various | High (has access) | All internal data |
+| Nation State | Espionage | Very High | IP, user data |
+
+---
+
+### 🔧🐛⚡🔗 Other Types — Stakeholders
+
+| Stakeholder | Role | Impact |
+|-------------|------|--------|
+| [Name/Team] | Requestor | Initiated this work |
+| [Name/Team] | Approver | Signs off on changes |
+| [Name/Team] | Affected Users | Impacted by current state |
+| [Name/Team] | Downstream Dependency | Relies on this code/system |
 
 ---
 
 ## 3. Success Metrics (The "Scoreboard")
 
-### North Star Metric
+*Adapt metrics based on project type:*
+
+### 🆕 New Product/Feature — Product Metrics
+
+#### North Star Metric
 | Metric | Target | Rationale |
 |--------|--------|-----------|
 | [e.g., D1 Retention] | [e.g., > 20%] | [Why this metric matters] |
 
-### Secondary Metrics
+#### Secondary Metrics
 | Metric | Target | Purpose |
 |--------|--------|---------|
 | [DAU] | [X] | [Health indicator] |
-| [Avg Session Length] | [X min] | [Engagement] |
 | [Conversion Rate] | [X%] | [Monetization] |
 
-### Guardrail Metrics (Must NOT Get Worse)
+#### Guardrail Metrics (Must NOT Get Worse)
 | Metric | Threshold | Alert Trigger |
 |--------|-----------|---------------|
-| Server Cost per User | < $[X] | > $[X] |
-| Crash Rate | < [X%] | > [X%] |
 | Error Rate | < [X%] | > [X%] |
-
-### Instrumentation Plan
-| Event Name | Properties | Trigger |
-|------------|------------|---------|
-| `[event_name]` | `{ prop1, prop2 }` | [When fired] |
-| `[event_name]` | `{ prop1, prop2 }` | [When fired] |
 
 ---
 
-## 4. User Stories & Journeys
+### 🔒 Security Audit — Security Metrics
 
-### Core User Stories
+| Metric | Target | Measurement |
+|--------|--------|-------------|
+| **Coverage** | [X%] of codebase reviewed | Lines/endpoints audited |
+| **Critical/High findings** | 0 unresolved before launch | Severity count |
+| **Remediation SLA** | Critical < 24h, High < 7d | Time to fix |
+| **Compliance** | 100% OWASP Top 10 addressed | Checklist completion |
+
+---
+
+### ⚡ Performance — Performance Metrics
+
+| Metric | Baseline | Target | Hard Limit |
+|--------|----------|--------|------------|
+| p50 Latency | [X ms] | [X ms] | [X ms] |
+| p95 Latency | [X ms] | [X ms] | [X ms] |
+| Throughput | [X rps] | [X rps] | — |
+| Memory Usage | [X MB] | [X MB] | [X MB] |
+
+---
+
+### 🐛 Bug Fix — Resolution Metrics
+
+| Metric | Definition |
+|--------|------------|
+| **Resolution Verified** | Bug no longer reproducible |
+| **Regression Tests Added** | X tests covering this scenario |
+| **No New Issues** | No new bugs introduced |
+
+---
+
+### 🔗 Integration/Migration — Data Metrics
+
+| Metric | Target |
+|--------|--------|
+| **Data Integrity** | 100% records migrated correctly |
+| **Downtime** | < [X] minutes |
+| **Rollback Time** | < [X] minutes if needed |
+
+---
+
+## 4. Scope & Scenarios
+
+*Choose the appropriate framing for your project type:*
+
+### 🆕 New Product/Feature — User Stories
 
 **Must Have (P0):**
 ```
@@ -103,57 +189,127 @@ Acceptance Criteria:
 - [ ] [Criterion 2]
 ```
 
-**Should Have (P1):**
-```
-AS A [persona]
-I WANT TO [action]
-SO THAT [benefit]
-```
-
-### Primary User Flow
+**Primary User Flow:**
 ```
 [Entry] → [Step 1] → [Step 2] → [Step 3] → [Core Value]
-              ↓
-         [Alt Path]
 ```
-
-### Entry Points
-| Source | First Screen | Expected % |
-|--------|--------------|------------|
-| [Direct link] | [Landing] | [X%] |
-| [Referral] | [Invite page] | [X%] |
 
 ---
 
-## 5. Functional Requirements
+### 🐛 Bug Fix — Reproduction & Impact
 
-### Feature Hierarchy
+**Reproduction Steps:**
+1. [Prerequisite/setup]
+2. [Action 1]
+3. [Action 2]
+4. [Observe: actual behavior]
+
+| Aspect | Detail |
+|--------|--------|
+| **Expected** | [What should happen] |
+| **Actual** | [What happens instead] |
+| **Frequency** | [Always / Sometimes / Specific conditions] |
+| **Environment** | [Browser, OS, account type] |
+| **Affected Users** | [Scope of impact] |
+
+---
+
+### 🔒 Security Audit — Attack Scenarios
+
+| Attack Vector | Scenario | Risk Level |
+|---------------|----------|------------|
+| SQL Injection | Malicious input in [field] | High |
+| XSS | Script injection via [input] | Medium |
+| Auth Bypass | [Specific scenario] | Critical |
+| IDOR | Access other users' data via [endpoint] | High |
+
+---
+
+### ⚡ Performance — Bottleneck Scenarios
+
+| Bottleneck | User Impact | Current Measurement |
+|------------|-------------|---------------------|
+| [Slow query] | [Page load delay] | [X ms] |
+| [Inefficient loop] | [UI freeze] | [X ms] |
+| [Large payload] | [Download time] | [X KB, X ms] |
+
+---
+
+### 🔗 Integration — Data Flow Scenarios
+
+| Flow | Source | Target | Trigger | Volume |
+|------|--------|--------|---------|--------|
+| [User sync] | System A | System B | [Event/Schedule] | [X records/day] |
+
+---
+
+## 5. Requirements & Scope Details
+
+*Choose the appropriate framing for your project type:*
+
+### 🆕 New Product/Feature — Functional Requirements
+
+#### Feature Hierarchy
 ```
 [Product]
 ├── [Core Feature 1]
 │   ├── [Sub-feature]
 │   └── [Sub-feature]
 ├── [Core Feature 2]
-│   ├── [Sub-feature]
-│   └── [Sub-feature]
 └── [Core Feature 3]
 ```
 
-### Feature Specifications
+#### Feature Specifications
+| Feature | Input | Output | Priority |
+|---------|-------|--------|----------|
+| [Feature Name] | [What it takes] | [What it produces] | P0/P1/P2 |
 
-#### [Feature Name]
-| Aspect | Specification |
-|--------|---------------|
-| **Input** | [What it takes] |
-| **Output** | [What it produces] |
-| **Interaction** | [How user interacts] |
-| **Priority** | P0/P1/P2 |
-
-### Data Entities
+#### Data Entities
 | Entity | Description | Key Fields |
 |--------|-------------|------------|
 | [User] | [Description] | id, email, created_at |
-| [Item] | [Description] | id, name, owner_id |
+
+---
+
+### 🐛 Bug Fix — Root Cause Analysis
+
+| Aspect | Detail |
+|--------|--------|
+| **Hypothesis** | [What we think is causing it] |
+| **Affected Files** | [List of files/modules] |
+| **Recent Changes** | [Related deployments] |
+| **Fix Approach** | [Quick patch vs proper fix] |
+
+---
+
+### 🔒 Security Audit — Audit Scope
+
+| Category | In Scope | Out of Scope |
+|----------|----------|--------------|
+| **Codebases** | [Repo list] | [Excluded repos] |
+| **Endpoints** | [All API, Auth flows] | [Internal tools] |
+| **Vulnerability Types** | [OWASP Top 10, specific] | [Physical security] |
+| **Access Levels** | [Anonymous, User, Admin] | [Super admin] |
+
+---
+
+### ⚡ Performance — Optimization Targets
+
+| Component | Current | Target | Approach |
+|-----------|---------|--------|----------|
+| [Query X] | [X ms] | [X ms] | [Add index] |
+| [Render Y] | [X ms] | [X ms] | [Memoization] |
+| [Payload Z] | [X KB] | [X KB] | [Compression] |
+
+---
+
+### 🔗 Integration — Data Mapping
+
+| Source Field | Target Field | Transformation |
+|--------------|--------------|----------------|
+| `source.user_id` | `target.id` | Direct map |
+| `source.full_name` | `target.first, last` | Split on space |
+| `source.created` | `target.created_at` | ISO8601 format |
 
 ---
 
@@ -661,4 +817,5 @@ import type { FeatureProps } from './types';
 
 ---
 
-*Generated by Claude Code — Start Project Skill (Gold Standard)*
+*Generated by Claude Code — Start Project Skill (Adaptive Template)*
+*Works for: New Products, Features, Refactors, Bug Fixes, Security Audits, Performance, Integrations*

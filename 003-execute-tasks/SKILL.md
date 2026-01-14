@@ -76,9 +76,10 @@ Everything after "use /subagent to" is the TASK.
 
 ### Step 5: Execute
 
-**Write prompt to temp file first** (avoids shell escaping issues):
+**Write prompt to project history** (avoids shell escaping, keeps history):
 ```bash
-cat > /tmp/task-prompt.md << 'EOF'
+mkdir -p .claude/prompts
+cat > .claude/prompts/{TASK_ID}.md << 'EOF'
 [TASK PROMPT HERE]
 EOF
 ```
@@ -86,13 +87,13 @@ EOF
 **Then pipe to subagent:**
 ```bash
 # Claude
-cat /tmp/task-prompt.md | claude --model MODEL --permission-mode acceptEdits -p
+cat .claude/prompts/{TASK_ID}.md | claude --model MODEL --permission-mode acceptEdits -p
 
 # Gemini
-cat /tmp/task-prompt.md | gemini --approval-mode auto_edit
+cat .claude/prompts/{TASK_ID}.md | gemini --approval-mode auto_edit
 
 # Codex
-cat /tmp/task-prompt.md | codex exec --skip-git-repo-check --full-auto --model MODEL -
+cat .claude/prompts/{TASK_ID}.md | codex exec --skip-git-repo-check --full-auto --model MODEL -
 ```
 
 ---
@@ -331,23 +332,24 @@ next_task: T006 | null
 
 ## Quick Reference: Commands
 
-**Always write prompt to file first, then pipe:**
+**Always write prompt to project history, then pipe:**
 ```bash
-# Write prompt to temp file
-cat > /tmp/task-prompt.md << 'EOF'
+# Write prompt to history (creates audit trail)
+mkdir -p .claude/prompts
+cat > .claude/prompts/T001.md << 'EOF'
 [Your prompt here]
 EOF
 
 # Claude (recommended for most tasks)
-cat /tmp/task-prompt.md | claude --model sonnet --permission-mode acceptEdits -p
-cat /tmp/task-prompt.md | claude --model opus --dangerously-skip-permissions -p
+cat .claude/prompts/T001.md | claude --model sonnet --permission-mode acceptEdits -p
+cat .claude/prompts/T001.md | claude --model opus --dangerously-skip-permissions -p
 
 # Gemini
-cat /tmp/task-prompt.md | gemini --approval-mode auto_edit
-cat /tmp/task-prompt.md | gemini -y
+cat .claude/prompts/T001.md | gemini --approval-mode auto_edit
+cat .claude/prompts/T001.md | gemini -y
 
 # Codex
-cat /tmp/task-prompt.md | codex exec --skip-git-repo-check --full-auto --model gpt-5.2-codex -
+cat .claude/prompts/T001.md | codex exec --skip-git-repo-check --full-auto --model gpt-5.2-codex -
 ```
 
 ---

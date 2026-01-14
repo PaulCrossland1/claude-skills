@@ -18,7 +18,9 @@ project-name/
 │   ├── tasks.json              # Sequential task breakdown
 │   ├── CONTEXT.md              # Current state (READ FIRST)
 │   ├── PROGRESS-NOTES.md       # Append-only work log
-│   └── BLOCKERS.md             # Human intervention needed
+│   ├── BLOCKERS.md             # Human intervention needed
+│   └── prompts/                # Subagent prompt history
+│       └── T001.md, T002.md, ...
 └── [project source files]
 ```
 

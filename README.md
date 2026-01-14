@@ -210,7 +210,9 @@ my-project/
 │   ├── tasks.json                  # Task breakdown with dependencies
 │   ├── CONTEXT.md                  # Current state for AI agents
 │   ├── PROGRESS-NOTES.md           # Log of completed work
-│   └── BLOCKERS.md                 # Blocked task tracking
+│   ├── BLOCKERS.md                 # Blocked task tracking
+│   └── prompts/                    # Subagent prompt history (from 003)
+│       └── T001.md, T002.md, ...
 │
 ├── src/                            # Source code (structure varies)
 │   └── ...

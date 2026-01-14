@@ -229,6 +229,30 @@ After subagent completes, perform a documentation sweep. You (in the main Claude
 
 4. **Skip sweep** only if task was trivial and completion signal confirms all updates made
 
+### Step 8.5: Simplify & Polish Code
+
+When the completion signal includes `simplification_requested: true`, apply code simplification to the modified files.
+
+**Read the files from `files_created` and `files_modified`**, then apply:
+
+1. **Preserve Functionality** — Only change HOW, not WHAT
+2. **Apply Project Standards** — Draw from `.claude/ARCHITECTURE.md` and `.claude/DECISIONS.md`
+3. **Enhance Clarity**:
+   - Reduce unnecessary complexity and nesting
+   - Eliminate redundant code and abstractions
+   - Improve variable/function names for clarity
+   - Avoid nested ternaries — prefer switch/if-else
+   - Choose clarity over brevity
+
+4. **Maintain Balance** — Don't over-simplify; prioritize readability
+
+**Skip simplification if:**
+- Task was trivial/simple complexity
+- Code is already clean and follows project standards
+- Files are configuration-only (no logic to simplify)
+
+See [simplifier-guidelines.md](references/simplifier-guidelines.md) for detailed principles.
+
 ### Step 9: Report & Continue
 
 Report results to user:

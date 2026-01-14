@@ -86,11 +86,15 @@ context_updated: [true|false]
 progress_notes_updated: [true|false]
 tasks_json_updated: [true|false]
 
+simplification_requested: true
+
 next_task: [{NEXT_TASK_ID}|null]
 --- END COMPLETION ---
+
+Please verify the work and run the code simplifier across the modified files.
 ```
 
-This completion signal is REQUIRED. The human (via 003-execute-tasks) uses it to track progress.
+This completion signal is REQUIRED. The human (via 003-execute-tasks) uses it to track progress and trigger code simplification.
 
 ---
 
@@ -100,8 +104,8 @@ This completion signal is REQUIRED. The human (via 003-execute-tasks) uses it to
 - DO NOT do work beyond this task's scope
 - DO update all three documentation files
 - DO run success criteria before marking complete
+- DO request simplification at the end (simplification_requested: true)
 - If blocked, describe the blocker clearly and set status: blocked
-```
 
 ---
 

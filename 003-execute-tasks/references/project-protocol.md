@@ -143,8 +143,12 @@ context_updated: true
 progress_notes_updated: true
 tasks_json_updated: true
 
+simplification_requested: true
+
 next_task: T006
 --- END COMPLETION ---
+
+Please verify the work and run the code simplifier across the modified files.
 ```
 
 ---
@@ -174,6 +178,8 @@ notes: string            # Free-form notes about the work
 context_updated: boolean        # Did you update CONTEXT.md?
 progress_notes_updated: boolean # Did you update PROGRESS-NOTES.md?
 tasks_json_updated: boolean     # Did you update tasks.json?
+
+simplification_requested: boolean  # Request code simplification pass
 
 next_task: string | null # Next task ID, or null if done/blocked
 --- END COMPLETION ---

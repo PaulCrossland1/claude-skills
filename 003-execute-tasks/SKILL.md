@@ -211,23 +211,23 @@ next_task: T006
 --- END COMPLETION ---
 ```
 
-### Step 8: Verify Documentation Updates
+### Step 8: Sweep & Enhance Documentation
 
-Review subagent's documentation updates for accuracy:
+After subagent completes, perform a documentation sweep. You (in the main Claude session) have broader project context than the subagent, so actively review and enhance:
 
-1. **Check files created/modified** by subagent
-2. **Verify updates** to CONTEXT.md, PROGRESS-NOTES.md, tasks.json
-3. **Spot-check accuracy** of updates:
+1. **Read files created/modified** by subagent
+2. **Verify subagent updates** to CONTEXT.md, PROGRESS-NOTES.md, tasks.json
+3. **Enhance if needed** — you have broader project context:
 
-| File | Check | Fix if... |
-|------|-------|-----------|
-| `.claude/CONTEXT.md` | Current state accurate? | Missing context or incorrect status |
-| `.claude/PROGRESS-NOTES.md` | Entry complete? | Missing details about work done |
-| `.claude/tasks.json` | Status correct? | Task not marked completed |
-| `.claude/ARCHITECTURE.md` | Still accurate? | New patterns emerged |
-| `.claude/DECISIONS.md` | New decisions made? | Subagent made architectural choices |
+| File | Check | Enhance if... |
+|------|-------|---------------|
+| `.claude/CONTEXT.md` | Current state accurate? | Add context subagent missed, note dependency implications |
+| `.claude/PROGRESS-NOTES.md` | Entry complete? | Add cross-references to related tasks, implementation notes |
+| `.claude/tasks.json` | Status correct? | Update downstream task descriptions if scope changed |
+| `.claude/ARCHITECTURE.md` | Still accurate? | Document new patterns that emerged |
+| `.claude/DECISIONS.md` | New decisions made? | Log architectural choices subagent made |
 
-4. **Skip verification** if completion signal shows all updates made and task was straightforward
+4. **Skip sweep** only if task was trivial and completion signal confirms all updates made
 
 ### Step 9: Report & Continue
 

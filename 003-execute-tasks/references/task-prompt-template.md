@@ -90,7 +90,7 @@ next_task: [{NEXT_TASK_ID}|null]
 --- END COMPLETION ---
 ```
 
-This completion signal is REQUIRED for tracking progress.
+This completion signal is REQUIRED. The human (via 003-execute-tasks) uses it to track progress.
 
 ---
 

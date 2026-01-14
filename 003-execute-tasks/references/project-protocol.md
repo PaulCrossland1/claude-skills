@@ -217,17 +217,17 @@ Cannot proceed with auth integration - CLERK_SECRET_KEY not set.
 
 ---
 
-## Signal Parsing
+## Completion Signal Parsing
 
-After the subagent completes, the skill parses the completion signal:
+You (the human, via 003-execute-tasks) should:
 
-1. **Find the signal** by searching for `--- TASK COMPLETION ---`
+1. **Find the completion signal** by searching for `--- TASK COMPLETION ---`
 2. **Parse YAML content** between delimiters
 3. **Verify updates** were made (check booleans)
-4. **Report to user**:
-   - `completed` → Show results, suggest next task
-   - `blocked` → Alert user, show blocker details
-   - `failed` → Show failure, user decides next step
+4. **Decide next action**:
+   - `completed` → Run next task when ready
+   - `blocked` → Resolve blocker before continuing
+   - `failed` → Review and decide how to proceed
 
 ---
 

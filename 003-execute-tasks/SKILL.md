@@ -76,15 +76,23 @@ Everything after "use /subagent to" is the TASK.
 
 ### Step 5: Execute
 
+**Write prompt to temp file first** (avoids shell escaping issues):
+```bash
+cat > /tmp/task-prompt.md << 'EOF'
+[TASK PROMPT HERE]
+EOF
+```
+
+**Then pipe to subagent:**
 ```bash
 # Claude
-claude --model MODEL --permission-mode acceptEdits -p "TASK"
+cat /tmp/task-prompt.md | claude --model MODEL --permission-mode acceptEdits -p
 
 # Gemini
-gemini --approval-mode auto_edit "TASK"
+cat /tmp/task-prompt.md | gemini --approval-mode auto_edit
 
 # Codex
-codex exec --skip-git-repo-check --full-auto --model MODEL "TASK"
+cat /tmp/task-prompt.md | codex exec --skip-git-repo-check --full-auto --model MODEL -
 ```
 
 ---
@@ -323,17 +331,23 @@ next_task: T006 | null
 
 ## Quick Reference: Commands
 
+**Always write prompt to file first, then pipe:**
 ```bash
+# Write prompt to temp file
+cat > /tmp/task-prompt.md << 'EOF'
+[Your prompt here]
+EOF
+
 # Claude (recommended for most tasks)
-claude --model sonnet --permission-mode acceptEdits -p "PROMPT"
-claude --model opus --dangerously-skip-permissions -p "PROMPT"
+cat /tmp/task-prompt.md | claude --model sonnet --permission-mode acceptEdits -p
+cat /tmp/task-prompt.md | claude --model opus --dangerously-skip-permissions -p
 
 # Gemini
-gemini --approval-mode auto_edit "PROMPT"
-gemini -y "PROMPT"
+cat /tmp/task-prompt.md | gemini --approval-mode auto_edit
+cat /tmp/task-prompt.md | gemini -y
 
 # Codex
-codex exec --skip-git-repo-check --full-auto --model gpt-5.2-codex "PROMPT"
+cat /tmp/task-prompt.md | codex exec --skip-git-repo-check --full-auto --model gpt-5.2-codex -
 ```
 
 ---

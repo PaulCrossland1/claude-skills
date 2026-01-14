@@ -105,34 +105,33 @@ Full automation sounds appealing, but it creates problems:
 
 ### 002-setup-project — Project Scaffolding
 
-**Purpose:** Transform a PRD into an executable project structure with a complete task breakdown.
+**Purpose:** Transform requirements into executable task breakdown. For medium+ scope projects.
+
+**When to use:** Projects that benefit from structured execution (multi-day efforts). Skip for scripts, quick fixes, or simple features.
+
+**Input flexibility:**
+- PRD.md from 001-scope-project
+- Any requirements doc
+- Requirements discussed in chat (no file needed)
 
 **What it does:**
-- Analyzes the PRD to understand scope
-- Generates a task breakdown (tasks.json) with dependencies
-- Creates architectural documentation
-- Sets up the .claude/ metadata directory
-- Produces a project context file for AI agents
-
-**Human involvement:** Review the task breakdown before execution begins.
+- Finds/gathers requirements from available sources
+- Confirms scope warrants structured approach
+- Generates task breakdown scaled to project size
+- Creates architecture and context docs
 
 **Output:**
-
-All documentation lives under `.claude/` — single source of truth:
 ```
 .claude/
-├── PRD.md              # Product requirements (from 001)
 ├── ARCHITECTURE.md     # Technical blueprint
-├── DECISIONS.md        # Architectural decision log
-├── ENV-SETUP.md        # Environment requirements
-├── tasks.json          # All tasks with dependencies, complexity, phases
-├── CONTEXT.md          # Current project state for agents
-├── PROGRESS-NOTES.md   # Running log of completed work
-└── BLOCKERS.md         # Blocked task tracking
+├── tasks.json          # Task breakdown (3-40 tasks based on scope)
+├── CONTEXT.md          # Agent briefing
+├── ENV-SETUP.md        # Environment setup
+└── [other docs]
 ```
 
 ```bash
-/002-setup-project    # Generate project scaffold from PRD
+/002-setup-project    # Generate project structure
 ```
 
 ---

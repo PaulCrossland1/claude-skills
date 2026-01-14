@@ -1,50 +1,82 @@
 ---
 name: 002-setup-project
-description: Transform a PRD into an executable project scaffold with sequential tasks. Generates tasks.json (task breakdown), ARCHITECTURE.md (technical blueprint), CONTEXT.md (agent briefing), and supporting docs. Use after /001-scope-project to prepare a project for AI-driven development. Invoke with /project-setup.
+description: Transform requirements into an executable project scaffold with sequential tasks. Generates tasks.json (task breakdown), ARCHITECTURE.md (technical blueprint), CONTEXT.md (agent briefing), and supporting docs. Use after /001-scope-project for medium+ scope projects that need structured execution. Invoke with /project-setup.
 ---
 
-# Project Setup — PRD to Executable Tasks
+# Project Setup — Requirements to Executable Tasks
 
-Transform a completed PRD into an executable project structure with sequential tasks that subagents can complete.
+Transform project requirements into an executable structure with sequential tasks.
 
-## What This Skill Generates
+**When to use:** Medium to large scope projects that benefit from structured task breakdown. Skip this for scripts, quick fixes, or simple features — just build those directly.
 
-**All project documentation lives under `.claude/`** — single source of truth:
+---
 
-```
-project-name/
-├── .claude/                    # All project metadata & documentation
-│   ├── PRD.md                  # Product requirements (from 001)
-│   ├── ARCHITECTURE.md         # Technical blueprint
-│   ├── DECISIONS.md            # Architecture decisions
-│   ├── ENV-SETUP.md            # Environment requirements
-│   ├── tasks.json              # Sequential task breakdown
-│   ├── CONTEXT.md              # Current state (agent reads first)
-│   ├── PROGRESS-NOTES.md       # Append-only work log
-│   └── BLOCKERS.md             # Human intervention needed
-└── [empty project structure]
-```
+## Step 1: Find or Gather Requirements
 
-## Workflow
+Requirements can come from multiple sources:
 
-### 1. Locate PRD
+### Option A: Existing Document
+If there's a PRD or requirements doc from 001-scope-project:
 
-Ask user for PRD location if not obvious:
 ```json
 {
   "questions": [{
-    "question": "Where is the PRD file?",
-    "header": "PRD Location",
+    "question": "Where are the requirements?",
+    "header": "Source",
     "options": [
-      {"label": "In current directory", "description": "PRD.md or similar in cwd"},
-      {"label": "Specify path", "description": "I'll provide the path"}
+      {"label": ".claude/PRD.md", "description": "Standard location"},
+      {"label": "Other file", "description": "I'll specify the path"},
+      {"label": "Earlier in chat", "description": "We discussed requirements already"}
     ],
     "multiSelect": false
   }]
 }
 ```
 
-### 2. Confirm Project Directory
+### Option B: From Chat Context
+If requirements were discussed but not saved to a file, work from that context. Summarize what you understand:
+
+> "Based on our discussion, here's what I understand:
+> - [Core functionality]
+> - [Tech stack]
+> - [Key requirements]
+>
+> I'll generate the project structure from this. Correct?"
+
+### Option C: No Requirements Yet
+If invoked without prior requirements work:
+
+> "I don't see a requirements doc. Should we:
+> 1. Run /001-scope-project first to gather requirements?
+> 2. You describe the project now and I'll work from that?"
+
+---
+
+## Step 2: Assess Scope
+
+Before generating 20-40 tasks, confirm this warrants structured execution:
+
+```json
+{
+  "questions": [{
+    "question": "How substantial is this project?",
+    "header": "Scope Check",
+    "options": [
+      {"label": "Multi-day project", "description": "Needs structured task breakdown"},
+      {"label": "Day or two", "description": "Maybe 5-10 tasks"},
+      {"label": "Few hours", "description": "Might be overkill to formalize"}
+    ],
+    "multiSelect": false
+  }]
+}
+```
+
+For small scope, suggest:
+> "For a few hours of work, you might not need full project scaffolding. Want to just start building, or proceed with formal setup anyway?"
+
+---
+
+## Step 3: Confirm Project Directory
 
 ```json
 {
@@ -52,7 +84,7 @@ Ask user for PRD location if not obvious:
     "question": "Where should the project be created?",
     "header": "Project Path",
     "options": [
-      {"label": "Current directory", "description": "Create here"},
+      {"label": "Current directory", "description": "Create .claude/ here"},
       {"label": "New subdirectory", "description": "Create project-name/ folder"},
       {"label": "Specify path", "description": "I'll provide the path"}
     ],
@@ -61,54 +93,58 @@ Ask user for PRD location if not obvious:
 }
 ```
 
-### 3. Generate Architecture Document
+---
 
-Read PRD and generate `.claude/ARCHITECTURE.md`:
-- Extract tech stack decisions
-- Map data models
-- Document API design
-- Create file structure plan
+## Step 4: Generate Project Structure
+
+### 4a. Create Architecture Document
+
+Read requirements and generate `.claude/ARCHITECTURE.md`:
+- Tech stack decisions
+- Data models
+- API design
+- File structure plan
 
 Use template from [document-templates.md](references/document-templates.md).
 
-### 4. Generate Task Breakdown
+### 4b. Generate Task Breakdown
 
-Read PRD and generate `.claude/tasks.json`:
+Create `.claude/tasks.json` following [task-generation.md](references/task-generation.md):
 
-**Follow methodology in [task-generation.md](references/task-generation.md)**:
-
-1. **Identify phases** from PRD sections
+1. **Identify phases** from requirements
 2. **Extract components** per phase
 3. **Order by dependency** (foundation → data → core → api → ui → test)
 4. **Write success criteria** (every task must be verifiable)
 
-**Use schema from [task-schema.md](references/task-schema.md)**.
+**Scale to scope:**
+| Project Size | Typical Tasks |
+|--------------|---------------|
+| Small (few hours) | 3-8 tasks |
+| Medium (days) | 10-20 tasks |
+| Large (weeks) | 20-40 tasks |
 
-Typical project has 20-40 tasks across phases:
-- foundation: 3-5 tasks
-- data-layer: 3-5 tasks
-- core: 5-10 tasks
-- api: 3-5 tasks
-- ui: 5-10 tasks
-- testing: 2-4 tasks
+Use schema from [task-schema.md](references/task-schema.md).
 
-### 5. Generate Supporting Documents
+### 4c. Generate Supporting Documents
 
-Create remaining docs using templates from [document-templates.md](references/document-templates.md):
+Create remaining docs using templates:
 
 - `.claude/CONTEXT.md` — Initial state summary
-- `.claude/PROGRESS-NOTES.md` — Empty log ready for entries
+- `.claude/PROGRESS-NOTES.md` — Empty log
 - `.claude/BLOCKERS.md` — Empty blockers file
-- `.claude/ENV-SETUP.md` — Environment requirements from PRD
+- `.claude/ENV-SETUP.md` — Environment requirements
 - `.claude/DECISIONS.md` — Initial architecture decisions
 
-### 6. Create Project Structure
+### 4d. Create Directory Structure
 
 Create empty directories matching ARCHITECTURE.md file structure.
 
-### 7. Output Summary
+---
+
+## Step 5: Output Summary
 
 Present what was created:
+
 ```
 ✓ Created project structure at /path/to/project
 
@@ -116,13 +152,31 @@ Generated:
 - tasks.json: [X] tasks across [Y] phases
 - ARCHITECTURE.md: Technical blueprint
 - CONTEXT.md: Initial agent briefing
-- PROGRESS-NOTES.md: Ready for logging
 - ENV-SETUP.md: Environment requirements
 
-Next steps:
-1. Review tasks.json and adjust if needed
-2. Set up environment per ENV-SETUP.md
-3. Run first task with: [next skill/command]
+First task: [T001 description]
+
+Ready to start? Run /003-execute-tasks
+```
+
+---
+
+## Output Structure
+
+**All project documentation lives under `.claude/`:**
+
+```
+project-name/
+├── .claude/
+│   ├── PRD.md              # Requirements (if saved)
+│   ├── ARCHITECTURE.md     # Technical blueprint
+│   ├── DECISIONS.md        # Architecture decisions
+│   ├── ENV-SETUP.md        # Environment requirements
+│   ├── tasks.json          # Task breakdown
+│   ├── CONTEXT.md          # Current state
+│   ├── PROGRESS-NOTES.md   # Work log
+│   └── BLOCKERS.md         # Issues needing human
+└── [project source files]
 ```
 
 ---
@@ -142,14 +196,8 @@ Every task has automated success criteria:
 - `type_checks` — TypeScript compiles
 - `test_passes` — Specific tests pass
 
-See [task-schema.md](references/task-schema.md) for all criteria types.
-
 ### Sequential Ordering
 Tasks execute in order. Each task's `depends_on` references prior tasks.
-
-```
-T001 (setup) → T002 (types) → T003 (models) → T004 (api) → T005 (ui)
-```
 
 ### Complexity Estimation
 | Complexity | Duration | Example |
@@ -163,7 +211,7 @@ T001 (setup) → T002 (types) → T003 (models) → T004 (api) → T005 (ui)
 
 ## CONTEXT.md Purpose
 
-**This is the most important file for agent continuity.**
+**Most important file for agent continuity.**
 
 Each subagent starts fresh. CONTEXT.md tells it:
 - What the project is
@@ -172,7 +220,7 @@ Each subagent starts fresh. CONTEXT.md tells it:
 - Current task
 - Key decisions made
 
-Update CONTEXT.md after each task completion.
+Updated after each task completion.
 
 ---
 
@@ -180,4 +228,4 @@ Update CONTEXT.md after each task completion.
 
 - **[task-schema.md](references/task-schema.md)** — JSON schema, success criteria types
 - **[document-templates.md](references/document-templates.md)** — Templates for all generated docs
-- **[task-generation.md](references/task-generation.md)** — PRD-to-tasks methodology
+- **[task-generation.md](references/task-generation.md)** — Requirements-to-tasks methodology

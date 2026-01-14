@@ -156,8 +156,8 @@ All documentation lives under `.claude/` — single source of truth:
 | Provider | Models | Best For |
 |----------|--------|----------|
 | **Claude** | haiku, sonnet, opus | General coding, most tasks |
-| **Gemini** | default | Alternative perspective |
-| **Codex** | mini, medium, max | OpenAI-style completion |
+| **Gemini** | default | writing documentation, testing, large context-hungry tasks |
+| **Codex** | mini, medium, max | bug fixes, performance reviews|
 
 Task complexity guides model selection:
 - `simple` → haiku / mini (fast, cheap)
@@ -423,13 +423,3 @@ Content here...
 ## License
 
 MIT License - Use freely, attribution appreciated.
-
----
-
-## Roadmap
-
-- [ ] **004-review** — Code review skill for completed tasks
-- [ ] **005-deploy** — Deployment automation
-- [ ] **006-test** — Automated test generation and execution
-- [ ] **Batch mode** — Run N tasks with single approval
-- [ ] **Web UI** — Browser-based dashboard for project status

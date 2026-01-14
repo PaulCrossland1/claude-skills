@@ -141,6 +141,7 @@ Project Structure:
   ✓ .claude/CONTEXT.md          Current project state
   ✓ .claude/PROGRESS-NOTES.md   Progress log
   ✓ .claude/BLOCKERS.md         Blocked task tracking
+  ✓ .claude/prompts/            Subagent prompt history (from 003)
 ```
 
 ### Step 5: Create Missing Directories

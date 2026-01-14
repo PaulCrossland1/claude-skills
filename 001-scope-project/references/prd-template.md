@@ -573,6 +573,79 @@ Errors:
 
 ---
 
+## 16. Code Standards & Conventions
+
+### Function Style
+| Context | Style | Example |
+|---------|-------|---------|
+| **Top-level functions** | [function keyword / arrow] | `function handleClick()` |
+| **Callbacks/inline** | [arrow functions] | `.map(item => ...)` |
+| **React components** | [function keyword] | `function Button()` |
+
+### TypeScript Conventions
+| Aspect | Standard |
+|--------|----------|
+| **Strictness** | [strict: true / moderate] |
+| **Return types** | [Explicit on public / Inferred] |
+| **Interface vs Type** | [Interface for objects, Type for unions] |
+| **any usage** | [Forbidden / Allowed sparingly] |
+
+### Import Organization
+```typescript
+// 1. External packages
+import { useState } from 'react';
+import { z } from 'zod';
+
+// 2. Internal modules (absolute paths)
+import { Button } from '@/components/ui/button';
+import { api } from '@/lib/api';
+
+// 3. Relative imports
+import { useFeature } from './hooks';
+import type { FeatureProps } from './types';
+```
+
+### Naming Conventions
+| Element | Convention | Example |
+|---------|------------|---------|
+| Variables/functions | [camelCase] | `getUserById` |
+| Components | [PascalCase] | `UserProfile` |
+| Files (components) | [kebab-case / PascalCase] | `user-profile.tsx` |
+| Files (utilities) | [kebab-case] | `format-date.ts` |
+| Constants | [SCREAMING_SNAKE / camelCase] | `MAX_RETRIES` |
+| Types/Interfaces | [PascalCase] | `UserProfile` |
+
+### Control Flow
+| Pattern | Standard |
+|---------|----------|
+| **Ternary operators** | [Simple only, never nested] |
+| **Early returns** | [Prefer early returns for guard clauses] |
+| **Error handling** | [Try/catch for async, Result types for sync] |
+
+### Comments & Documentation
+| Type | When to Use |
+|------|-------------|
+| **JSDoc** | [Public functions, exported types] |
+| **Inline comments** | [Explain WHY, not WHAT] |
+| **TODO format** | `// TODO(author): description` |
+
+### Formatting
+| Tool | Configuration |
+|------|---------------|
+| **Formatter** | [Prettier / Biome] |
+| **Linter** | [ESLint with X config] |
+| **Pre-commit** | [Husky + lint-staged / None] |
+
+### Quality Rules
+| Rule | Enforcement |
+|------|-------------|
+| No console.log in production | [ESLint rule] |
+| No unused variables | [TypeScript strict] |
+| Max function length | [~50 lines suggested] |
+| Max file length | [~300 lines suggested] |
+
+---
+
 ## Appendix
 
 ### Glossary

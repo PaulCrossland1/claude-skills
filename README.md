@@ -82,17 +82,20 @@ Full automation sounds appealing, but it creates problems:
 **Purpose:** Transform a vague idea into a comprehensive Product Requirements Document through structured discovery.
 
 **What it does:**
-- Guides you through iterative questioning phases
+- Guides you through **21 structured questioning phases**
 - Captures functional requirements, user stories, constraints
+- Defines tech stack, architecture, and **code standards**
 - Produces a detailed PRD ready for implementation
 - Ensures nothing is missed before coding begins
 
 **Human involvement:** You answer discovery questions, shaping the project vision.
 
+**Code Standards (Phase 21):** The PRD captures your coding conventions — function style, TypeScript strictness, naming, formatting. These flow into ARCHITECTURE.md and are enforced during code simplification (003 Step 8.5).
+
 **Output:**
 ```
 .claude/
-└── PRD.md              # Complete product requirements
+└── PRD.md              # Complete product requirements (incl. code standards)
 ```
 
 ```bash
@@ -169,15 +172,16 @@ Task complexity guides model selection:
 ┌─────────────────────────────────────────────────────────────┐
 │ 003-execute-tasks                                           │
 ├─────────────────────────────────────────────────────────────┤
-│ 1. Read task from tasks.json                                │
-│ 2. Generate prompt with full project context                │
-│ 3. Ask YOU: Provider? Model? Permissions?                   │
-│ 4. Spawn subagent CLI with your choices                     │
-│ 5. Subagent completes task + emits completion signal        │
-│ 6. Parse completion signal                                  │
-│ 7. Sweep & enhance documentation                            │
-│ 8. Simplify & polish code (from context modules standards)  │
-│ 9. Report results — YOU decide to continue or stop          │
+| 1. Loads context modules                                    │
+│ 2. Read task from tasks.json                                │
+│ 3. Generate prompt with full project context                │
+│ 4. Ask YOU: Provider? Model? Permissions?                   │
+│ 5. Spawn subagent CLI with your choices                     │
+│ 6. Subagent completes task + emits completion signal        │
+│ 7. Parse completion signal                                  │
+│ 8. Sweep & enhance documentation                            │
+│ 9. Simplify & polish code (from context modules standards)  │
+│ 10. Report results — YOU decide to continue or stop         │
 └─────────────────────────────────────────────────────────────┘
 ```
 

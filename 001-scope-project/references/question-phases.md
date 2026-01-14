@@ -487,6 +487,91 @@ Use AskUserQuestion tool for each phase. Ask 2-4 questions per turn maximum.
 
 ---
 
+## Phase 21: Code Standards & Conventions
+
+**Goal**: Define coding standards that agents will follow during implementation
+
+### Questions
+
+1. **Function Style**
+   - "Function declaration style?" (`function` keyword vs arrow functions)
+   - "When to use each?" (Top-level = function, callbacks = arrow)
+
+2. **Type Annotations**
+   - "TypeScript strictness?" (Strict, Moderate, Loose)
+   - "Explicit return types on functions?" (Always, Public only, Inferred)
+   - "Interface vs Type preference?" (Interface for objects, Type for unions)
+
+3. **Import Organization**
+   - "Import sorting order?" (External → Internal → Relative)
+   - "Named vs default exports?" (Prefer named, Default for components)
+   - "Barrel files (index.ts)?" (Yes for modules, No for deep imports)
+
+4. **Error Handling**
+   - "Error handling pattern?" (Try/catch, Result types, Error boundaries)
+   - "Logging conventions?" (Console, Logger service, Silent in prod)
+
+5. **Naming Conventions**
+   - "Variable/function naming?" (camelCase)
+   - "Component naming?" (PascalCase)
+   - "File naming?" (kebab-case, camelCase, PascalCase)
+   - "Constants?" (SCREAMING_SNAKE_CASE, camelCase)
+
+6. **Control Flow**
+   - "Ternary usage?" (Simple only, Never nested, Prefer if/else)
+   - "Early returns?" (Prefer early returns vs single return)
+   - "Guard clauses?" (Yes, validate inputs first)
+
+7. **Formatting & Linting**
+   - "Formatter?" (Prettier, ESLint --fix, Biome)
+   - "ESLint config?" (Strict, Recommended, Custom)
+   - "Pre-commit hooks?" (Husky + lint-staged, None)
+
+8. **Comments & Documentation**
+   - "JSDoc on public functions?" (Required, Optional, None)
+   - "Inline comments?" (Explain why, not what)
+   - "TODO format?" (`// TODO(author): description`)
+
+### Example AskUserQuestion
+
+```json
+{
+  "questions": [
+    {
+      "question": "What's your preference for function declarations?",
+      "header": "Functions",
+      "options": [
+        {"label": "function keyword (Recommended)", "description": "Top-level functions use function keyword"},
+        {"label": "Arrow functions", "description": "All functions use arrow syntax"},
+        {"label": "Mixed", "description": "function for top-level, arrow for callbacks"}
+      ],
+      "multiSelect": false
+    },
+    {
+      "question": "How strict should TypeScript be?",
+      "header": "TypeScript",
+      "options": [
+        {"label": "Strict (Recommended)", "description": "strict: true, explicit types"},
+        {"label": "Moderate", "description": "Some any allowed, inferred types OK"},
+        {"label": "Loose", "description": "Focus on functionality over types"}
+      ],
+      "multiSelect": false
+    }
+  ]
+}
+```
+
+### Why This Matters
+
+Code standards captured here flow into:
+- `.claude/ARCHITECTURE.md` — Patterns section
+- `.claude/DECISIONS.md` — ADRs for style choices
+- **003-execute-tasks Step 8.5** — Code simplifier uses these standards
+
+Without explicit standards, each subagent invents its own style, creating inconsistent code.
+
+---
+
 ## Question Delivery Guidelines
 
 ### AskUserQuestion Tool Usage

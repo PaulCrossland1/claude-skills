@@ -55,6 +55,7 @@ Work through all 20 phases from [question-phases.md](references/question-phases.
 | **18** | Go-to-Market | Release phases, marketing, rollback plan |
 | **19** | Scope Boundaries | v1/v2, exclusions, risks, open questions |
 | **20** | Implementation | File structure, patterns, testing, docs |
+| **21** | Code Standards | Conventions, style, formatting, quality rules |
 
 ### Phase Execution Rules
 

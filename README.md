@@ -79,35 +79,26 @@ Full automation sounds appealing, but it creates problems:
 
 ### 001-scope-project — Requirements Discovery
 
-**Purpose:** Iterative discovery for any software work. Keeps asking questions until requirements are complete.
-
-**Works for:** New products, features, bug fixes, refactors, security audits, performance optimization, integrations.
+**Purpose:** Natural conversation to understand what you're building, then targeted questions to nail down details.
 
 **How it works:**
-1. **Understand the work** — What type of project is this?
-2. **Iterative questioning** — Keep asking until all required information is captured
-3. **Completeness check** — Summarize everything, confirm with user
-4. **Generate document** — Produce requirements doc ready for execution
+1. **Open prompt** — "What are we working on today?" (you describe freely)
+2. **Targeted questions** — Model asks follow-ups based on what you said
+3. **Adapt to scope** — Small script? 2-3 questions. Full product? Deep discovery.
+4. **Generate doc** — Match output to scope (or skip doc for tiny things)
 
-**Key principle:** No rigid phases. The model follows threads naturally, diving deeper when answers reveal complexity, and keeps asking until it has everything needed.
+**Key principle:** Start open, let you describe intent naturally, then use AskUserQuestion to drill down on specifics. Don't over-engineer small requests.
 
-**Required outcomes** (varies by project type):
-- The Why — Problem, who's affected, urgency
-- Success Criteria — How we know it's done
-- Scope — What's in, out, deferred
-- Technical Approach — Stack, architecture, decisions
-- Risks & Constraints — What could go wrong
-
-**Human involvement:** You answer questions and confirm understanding before document generation.
+**Works for:** Anything from a 10-line script to a full product. The depth of questioning matches the scope.
 
 **Output:**
 ```
 .claude/
-└── [TYPE]-[name].md    # PRD, BUGFIX, SECURITY, REFACTOR, etc.
+└── [requirements].md   # Only for medium+ scope
 ```
 
 ```bash
-/001-scope-project    # Start requirements discovery
+/001-scope-project    # Start discovery conversation
 ```
 
 ---
